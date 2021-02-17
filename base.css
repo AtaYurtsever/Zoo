@@ -26,10 +26,9 @@
 
 .header h1{
     position:absolute;
-    top:0;
+    top:120px;
     color:	#DDDDDD;
     font-weight: bolder;
-    margin-top: 5%;
     margin-left: 100px;
     font-size: 120px;
 }
