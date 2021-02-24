@@ -30,7 +30,7 @@
     color:	#DDDDDD;
     font-weight: bolder;
     margin-left: 100px;
-    font-size: 120px;
+    font-size: 90px;
 }
 
 .files{
@@ -65,10 +65,10 @@
 
 .file h1{
     margin-left: 40%;
-    font-size: 72px;
+    font-size: 54px;
 }
 .file h2{
     margin-left: 40%;
-    font-size: 50px;
+    font-size: 38px;
 }
 
