@@ -4,9 +4,8 @@ import { Link, useHistory } from "react-router-dom"
 
 
 
-export function Welcome(){
+export function Welcome(props){
 
-  const history = useHistory();
 
   let events = <Grid key={"Events"} item>
                   <Card>
