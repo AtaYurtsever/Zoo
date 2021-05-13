@@ -31,14 +31,15 @@ function App() {
         if(resp.data.exists) {
           setSuccess("Successfully logged in");
           setOpen(false);
-          setUser(resp.data.user);
+          const usr = resp.data.user
+          usr["type"] = resp.data.type
+          setUser(usr);
         }
         else{
           setFail("User does not exist");
         }
       })
   }
-
   const accounCirc = <>
   
           <IconButton
