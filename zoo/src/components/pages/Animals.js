@@ -20,7 +20,7 @@ export function Animals(){
         .then(data => setAnimals(data))
     },[])
 
-    return <GridList cellHeight={350} >
+    return <GridList cellHeight={50} >
         {
             animals.map(animal => (
                 <GridListTile key={animal.title}>
