@@ -34,6 +34,8 @@ public class AuthController {
     @PostMapping("login")
     public LoginResponse login(@RequestBody Login login){
         var usr = vr.login(login.username, login.password);
+        System.out.println(usr.get());
+        System.err.println(usr.isPresent());
         if(usr.isPresent()) return new LoginResponse(true, "visitor",usr.get());
         else return new LoginResponse(false, "Does not exist", null);
     }

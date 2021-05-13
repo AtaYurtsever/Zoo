@@ -4,12 +4,17 @@ import java.math.BigInteger;
 import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
+
+import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -27,6 +32,7 @@ import lombok.ToString;
 @Setter
 public class User {
     @Id
+    @GeneratedValue
     Long id;
 
     @Column(length=20)
