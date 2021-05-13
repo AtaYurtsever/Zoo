@@ -2,6 +2,10 @@ import { AppBar, Toolbar, Typography, Button, Dialog, DialogTitle, TextField, Di
 import {Switch, Route, BrowserRouter} from "react-router-dom"
 import { Welcome } from './components/pages/welcome';
 import { Animals } from './components/pages/Animals';
+import { Events } from './components/pages/Event';
+import { BrowseGroupTours } from './components/pages/BrowseGT';
+import { BrowseEdEvents } from './components/pages/BrowseEV';
+import { BrowseConsOrg } from './components/pages/BrowseCO';
 import { useState } from 'react';
 import MuiAlert from '@material-ui/lab/Alert';
 import axios from 'axios';
@@ -14,6 +18,7 @@ function Alert(props) {
 
 
 function App() {
+  var headerTxt = "Welcome to the Zoo!";
   const [user,setUser] = useState(null);
   const [open, setOpen] = useState(false);
   const [success, setSuccess] = useState("");
@@ -76,7 +81,7 @@ function App() {
     <AppBar position="static" style={{marginBottom:"20px"}}>
       <Toolbar>
         <Typography variant="h6" style={{flexGrow:1}}>
-          Welcome to the Zoo
+        {headerTxt}
         </Typography>
         {loginBtn}
       </Toolbar>
@@ -89,6 +94,18 @@ function App() {
               </Route>
               <Route path="/animals">
                 <Animals/>
+              </Route>
+              <Route path="/events">
+                <Events/>
+              </Route>
+              <Route path="/gt">
+                <BrowseGroupTours/>
+              </Route>
+              <Route path="/ev">
+                <BrowseEdEvents/>
+              </Route>
+              <Route path="/co">
+                <BrowseConsOrg/>
               </Route>
               <Route path="/">
                 <Welcome user={user} />
