@@ -13,7 +13,6 @@ const useStyles = makeStyles(()=>({
 export function Animals(){
     const [animals, setAnimals] = useState([])
 
-
     useEffect(()=>{
         axios("https://jsonplaceholder.typicode.com/posts")
         .then(data => data.data)

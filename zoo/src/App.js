@@ -1,11 +1,13 @@
-import { AppBar, Toolbar, Typography, Button, Dialog, DialogTitle, TextField, DialogActions, Snackbar } from "@material-ui/core";
-import {Switch, Route, BrowserRouter} from "react-router-dom"
+import { AppBar, Toolbar, Typography, Button, Dialog, DialogTitle, TextField, DialogActions, Snackbar, IconButton, Menu, MenuItem } from "@material-ui/core";
+import {Link, Switch, Route, BrowserRouter} from "react-router-dom"
 import { Welcome } from './components/pages/welcome';
 import { Animals } from './components/pages/Animals';
+import { Register } from './components/pages/Register';
 import { useState } from 'react';
 import MuiAlert from '@material-ui/lab/Alert';
 import axios from 'axios';
-
+import { AccountCircle } from "@material-ui/icons";
+import { Pets } from "@material-ui/icons"
 //user.type
 
 function Alert(props) {
@@ -19,14 +21,17 @@ function App() {
   const [success, setSuccess] = useState("");
   const [fail, setFail] = useState("");
   const [username, setUsername] = useState("");
+  const [anchorEl, setAnchorEl] = useState(null);
   const [password, setPassword] = useState("");
+
+  const isMenuOpen = Boolean(anchorEl);
   const login=()=>{
     axios.post("http://localhost:8081/auth/login",{username:username, password:password})
-      .then(resp => {
-        if(resp.exists) {
+      .then(resp => { 
+        if(resp.data.exists) {
           setSuccess("Successfully logged in");
           setOpen(false);
-          setUser(resp.user);
+          setUser(resp.data.user);
         }
         else{
           setFail("User does not exist");
@@ -34,7 +39,36 @@ function App() {
       })
   }
 
-  const loginBtn = <>
+  const accounCirc = <>
+  
+          <IconButton
+            edge="end"
+            aria-label="account of current user"
+            aria-controls={"menuId"}
+            aria-haspopup="true"
+            onClick={(event)=>setAnchorEl(event.currentTarget)}
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
+      <Menu
+        anchorEl={anchorEl}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        id={"menuId"}
+        keepMounted
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        open={isMenuOpen}
+        onClose={()=>setAnchorEl(null)}
+      >
+        <MenuItem onClick={()=>{
+          setAnchorEl(null);
+          setUser(null)
+        }}>Logout</MenuItem>
+      </Menu>
+      
+      </>
+
+  const loginBtn =  user === null ? <>
       <Button color="inherit" onClick={()=>setOpen(true)}>Login</Button>
       <Dialog 
         open={open} 
@@ -63,29 +97,33 @@ function App() {
               style={{width:"70%", left:"15%"}}
             />
   
-              <DialogActions>
-                  <Button onClick={()=>setOpen(false)} color="primary">
-                    Cancel
+              <DialogActions> 
+                  <Button component={Link} to="/register" color="primary">
+                    Register
                   </Button>
                   <Button color="primary" onClick={()=>login()}>Submit</Button>
             </DialogActions>
       </Dialog>
-  </>
+  </> : accounCirc
+
 
   return (<>
+    <BrowserRouter>
     <AppBar position="static" style={{marginBottom:"20px"}}>
       <Toolbar>
+        <IconButton component={Link} to="/">
+          <Pets/>
+        </IconButton>
         <Typography variant="h6" style={{flexGrow:1}}>
           Welcome to the Zoo
         </Typography>
         {loginBtn}
       </Toolbar>
     </AppBar>
-    <BrowserRouter>
       <div className="App">
             <Switch>
-              <Route path="/hello">
-                Hello
+              <Route path="/register">
+                <Register setUser={setUser} success={setSuccess} fail={setFail}/> 
               </Route>
               <Route path="/animals">
                 <Animals/>
