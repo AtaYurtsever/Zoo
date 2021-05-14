@@ -12,6 +12,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
+@Table(name = "Educational_Event")
 @NoArgsConstructor
 @ToString(callSuper = true)
 @Getter

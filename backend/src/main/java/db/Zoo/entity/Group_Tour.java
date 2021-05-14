@@ -12,6 +12,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
+@Table(name = "Group_Tour")
 @NoArgsConstructor
 @ToString(callSuper = true)
 @Getter

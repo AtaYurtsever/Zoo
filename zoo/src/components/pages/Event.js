@@ -62,7 +62,8 @@ export function Events(){
                 </Grid>
 
 
-    return (<Grid container justify="center" spacing={10} style={{flexGrow:1}}>
+    return (
+    <Grid container justify="center" spacing={10} style={{flexGrow:1}}>
         {gt}
         {ev}
         {co}

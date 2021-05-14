@@ -12,6 +12,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
+@Table(name = "Conservation_Organization")
 @NoArgsConstructor
 @ToString(callSuper = true)
 @Getter
