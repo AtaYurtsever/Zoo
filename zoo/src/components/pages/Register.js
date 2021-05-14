@@ -41,7 +41,7 @@ export function Register(props){
                 birthday:birthday.toJSON(),
                 gender:gender
             }
-            axios.post("http://localhost:8081/auth/register",visitor)
+            axios.post("http://localhost:3003/auth/register",visitor)
                 .then(resp=>{ 
                     if(resp.data) {
                         props.success("successfully registered")
