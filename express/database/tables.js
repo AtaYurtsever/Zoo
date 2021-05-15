@@ -4,13 +4,8 @@ exports.createTables =  function createTables(){
     const client = getClient()
 
     var qry = ''
-    qry += `    DROP SCHEMA public CASCADE;
-                CREATE SCHEMA public;
-            `
-                //    grant create on schema public to public
-            //    grant usage on schema public to public`
-                
-    /*qry +=`       DROP TABLE attends;
+    qry +=`       DROP TABLE buys;
+                  DROP TABLE attends;
                   DROP TABLE joins;
                   DROP TABLE invite;
                   DROP TABLE g_has_c;
@@ -35,7 +30,7 @@ exports.createTables =  function createTables(){
                   DROP TABLE zooUser;
                   DROP TABLE Food;
                  ` 
-    */     
+     
      
 
     qry +=`CREATE TABLE zooUser
@@ -286,6 +281,15 @@ exports.createTables =  function createTables(){
                     FOREIGN KEY (animal_name, animal_type) REFERENCES Animals(name, type),
                     FOREIGN KEY (shop) REFERENCES Giftshop(name) );
                     ` 
+
+    qry += `CREATE TABLE Buys
+                ( username varchar(20),
+                product_code uuid,
+                buy_date date,
+                FOREIGN KEY (username) REFERENCES Visitor(username),
+                FOREIGN KEY (product_code) REFERENCES Gift(product_code),
+                PRIMARY KEY (product_code) )
+            `
 
     console.log(qry);
     client.query(qry,  (err,res) => {console.log(err,res)})    
