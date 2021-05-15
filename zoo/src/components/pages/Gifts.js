@@ -4,6 +4,10 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link, useParams } from 'react-router-dom';
 
+function withDiscount(price,discount){
+    return <><strike>{price}</strike>  {price*(1-discount)}₺</>
+}
+
 const useStyles = makeStyles(()=>({
     gridList: {
         width: 500,
@@ -29,19 +33,27 @@ export function Gifts(props){
     <GridList cellHeight={150} >
         {
             gifts.map((gift,index) => (
-                <GridListTile key={gift.name}>
+                <GridListTile key={gift.name} margin="dense">
                     <img src={`/shop/p${index%3}.jpg`} />
                     <GridListTileBar
-                        margin="dense"
                         cols={2}
                         title={gift.name}
-                        subtitle={gift.price}
+                        subtitle={parseFloat(gift.discount) === 0 ? gift.price: withDiscount(parseFloat(gift.price), parseFloat(gift.discount))}
                         actionIcon={
                         <IconButton aria-label={`info about ${gift.name}`}>
                             <Shop/>
                         </IconButton>
                     }
                     />
+                    {(parseFloat(gift.discount)!== 0) ?
+                        <GridListTileBar
+                            titlePosition="top"
+                            margin="dense"
+                            cols={2}
+                            title={parseFloat(gift.discount)*100 + "% Discount"}
+                            style={{background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)'}}
+                        /> : ""
+                    }
                 </GridListTile>
             ))
         }
