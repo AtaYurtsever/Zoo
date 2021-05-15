@@ -8,6 +8,7 @@ exports.createTables =  function createTables(){
                   DROP TABLE employee;
                   DROP TABLE zooUser;
                   DROP TABLE giftshop;
+                  DROP TABLE Gift;
                   DROP TABLE Event;
                   DROP TABLE Conservation_Organization;
                   DROP TABLE Educational_Event;
@@ -67,6 +68,7 @@ exports.createTables =  function createTables(){
                     FOREIGN KEY (username) REFERENCES employee(username))`, (err, res) => {
         if(err!== null) console.log(err );
     })
+
 
     // EVENT RELATED ENTITY TABLES
     client.query(`CREATE TABLE Event
@@ -217,4 +219,22 @@ exports.createTables =  function createTables(){
         if(err!== null) console.log(err );
     })
     
+
+    //TODO: add animals
+    client.query(`CREATE TABLE Gift
+                    ( product_code uuid PRIMARY KEY,
+                    price money,
+                    name varchar(40),
+                    animal_name char(40),
+                    animal_type char(120),
+                    shop varchar(40),
+                    discount decimal(3,2),` +
+                    //FOREIGN KEY (animal_name, animal_type) REFERENCES Animal(name, type),
+                    `FOREIGN KEY (shop) REFERENCES Giftshop(name) )
+                    `, (err, res) => {
+    
+        if(err!== null) console.log(err );
+    })
+    
+
 }
