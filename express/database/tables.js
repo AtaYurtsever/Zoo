@@ -55,4 +55,19 @@ exports.createTables =  function createTables(){
         if(err!== null) console.log(err );
     })
 
+
+    //TODO: add animals
+    client.query(`CREATE TABLE Gift
+                    ( product_code uuid PRIMARY KEY,
+                    price money,
+                    name varchar(40),
+                    animal_name char(40),
+                    animal_type char(120),
+                    shop varchar(40),
+                    discount float(2,1),
+                    ${""//FOREIGN KEY (animal_name, animal_type) REFERENCES Animal(name, type),
+                    }
+                    FOREIGN KEY (shop) REFERENCES Giftshop(name) )
+                    `)
+
 }

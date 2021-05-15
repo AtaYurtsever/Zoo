@@ -8,6 +8,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import axios from 'axios';
 import { AccountCircle } from "@material-ui/icons";
 import { Pets } from "@material-ui/icons"
+import { Shops } from "./components/pages/Shops";
 //user.type
 
 function Alert(props) {
@@ -128,6 +129,9 @@ function App() {
               </Route>
               <Route path="/animals">
                 <Animals/>
+              </Route>
+              <Route path="/shops">
+                <Shops success={setSuccess} fail={setFail}/>
               </Route>
               <Route path="/">
                 <Welcome user={user} />
