@@ -3,6 +3,10 @@ import {Link, Switch, Route, BrowserRouter} from "react-router-dom"
 import { Welcome } from './components/pages/welcome';
 import { Animals } from './components/pages/Animals';
 import { Register } from './components/pages/Register';
+import { Events } from './components/pages/Event';
+import { BrowseGroupTours, GtInfo } from './components/pages/BrowseGT';
+import { BrowseEdEvents, EvInfo } from './components/pages/BrowseEV';
+import { BrowseConsOrg, CoInfo } from './components/pages/BrowseCO';
 import { useState } from 'react';
 import MuiAlert from '@material-ui/lab/Alert';
 import axios from 'axios';
@@ -128,6 +132,27 @@ function App() {
               </Route>
               <Route path="/animals">
                 <Animals/>
+              </Route>
+              <Route path="/events">
+                <Events/>
+              </Route>
+              <Route path="/gt">
+                <BrowseGroupTours/>
+              </Route>
+              <Route path="/ev">
+                <BrowseEdEvents/>
+              </Route>
+              <Route path="/co">
+                <BrowseConsOrg/>
+              </Route>
+              <Route path="/gt_info">
+                <GtInfo/>
+              </Route>
+              <Route path="/ev_info">
+                <EvInfo/>
+              </Route>
+              <Route path="/co_info">
+                <CoInfo/>
               </Route>
               <Route path="/">
                 <Welcome user={user} />

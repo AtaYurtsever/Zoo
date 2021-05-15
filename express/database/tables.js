@@ -1,6 +1,5 @@
 const { getClient } =  require('./db');
 
-
 exports.createTables =  function createTables(){
     const client = getClient()
 
