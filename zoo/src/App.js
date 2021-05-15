@@ -26,7 +26,7 @@ function App() {
 
   const isMenuOpen = Boolean(anchorEl);
   const login=()=>{
-    axios.post("http://localhost:8081/auth/login",{username:username, password:password})
+    axios.post("http://localhost:3003/auth/login",{username:username, password:password})
       .then(resp => { 
         if(resp.data.exists) {
           setSuccess("Successfully logged in");
