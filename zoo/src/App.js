@@ -3,17 +3,22 @@ import {Link, Switch, Route, BrowserRouter} from "react-router-dom"
 import { Welcome } from './components/pages/welcome';
 import { Animals } from './components/pages/Animals';
 import { Register } from './components/pages/Register';
+import { Events } from './components/pages/Event';
+import { BrowseGroupTours, GtInfo } from './components/pages/BrowseGT';
+import { BrowseEdEvents, EvInfo } from './components/pages/BrowseEV';
+import { BrowseConsOrg, CoInfo } from './components/pages/BrowseCO';
 import { useState } from 'react';
 import MuiAlert from '@material-ui/lab/Alert';
 import axios from 'axios';
 import { AccountCircle } from "@material-ui/icons";
 import { Pets } from "@material-ui/icons"
+import { Shops } from "./components/pages/Shops";
+import { Gifts } from "./components/pages/Gifts";
 //user.type
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />; 
 }
-
 
 function App() {
   const [user,setUser] = useState(null);
@@ -98,7 +103,7 @@ function App() {
               style={{width:"70%", left:"15%"}}
             />
   
-              <DialogActions> 
+            <DialogActions> 
                   <Button component={Link} to="/register" color="primary">
                     Register
                   </Button>
@@ -128,6 +133,34 @@ function App() {
               </Route>
               <Route path="/animals">
                 <Animals/>
+              </Route>
+
+              <Route path="/events">
+                <Events/>
+              </Route>
+              <Route path="/gt">
+                <BrowseGroupTours/>
+              </Route>
+              <Route path="/ev">
+                <BrowseEdEvents/>
+              </Route>
+              <Route path="/co">
+                <BrowseConsOrg/>
+              </Route>
+              <Route path="/gt_info">
+                <GtInfo/>
+              </Route>
+              <Route path="/ev_info">
+                <EvInfo/>
+              </Route>
+              <Route path="/co_info">
+                <CoInfo/>
+              </Route>
+              <Route exact path="/shops/:name">
+                <Gifts success={setSuccess} fail={setFail}/>
+              </Route>
+              <Route exact path="/shops">
+                <Shops success={setSuccess} fail={setFail}/>
               </Route>
               <Route path="/">
                 <Welcome user={user} />

@@ -29,6 +29,8 @@ const insertAnimal = (v) => {
     })
 }
 
+const { v4:uuidV4 } = require("uuid")
+
 
 const insertVisitor = (v) => {
     var bday = v.birthday.substr(0,10);
@@ -82,8 +84,24 @@ const insertGiftshopManager = (v) => {
     })
 }
 
+const insertGift = (v) => {
+    const qry = `INSERT INTO Gift
+                (product_code, price, name, animal_name, animal_type, shop, discount)
+                VALUES ('${uuidV4()}', ${v.price}, '${v.name}', '${v.animal_name}',
+                 '${v.animal_type}', '${v.shop}', ${v.discount})
+                `
+    const client = getClient();
+    client.query(qry, (err,res)=>{
+        if(err!==null) console.log(err,qry);
+    })
+        
+}
+
 exports.insertGiftshop = insertGiftshop;
 exports.insertGiftshopManager = insertGiftshopManager;
 exports.insertVisitor = insertVisitor;
+
 exports.insertFood = insertFood;
 exports.insertAnimal = insertAnimal;
+exports.insertGift = insertGift;
+

@@ -24,6 +24,11 @@ export function Welcome(props){
                         <Event/>
                       </CardContent>
                     </CardActionArea>
+                    <CardActions> 
+                      <Button component={Link} to="/events">
+                        Browse Events
+                      </Button>
+                    </CardActions>
                   </Card>
                 </Grid>
 
@@ -40,10 +45,15 @@ export function Welcome(props){
                       <CardContent>
                         <Typography variant="h5" component="h2">
                           GiftShop
-                        </Typography>
                         <CardGiftcard/>
+                        </Typography>
                       </CardContent>
                     </CardActionArea>
+                    <CardActions> 
+                      <Button component={Link} to="/shops">
+                        Let's see
+                      </Button>
+                    </CardActions>
                   </Card>
                 </Grid>
 
