@@ -24,6 +24,11 @@ export function Welcome(props){
                         <Event/>
                       </CardContent>
                     </CardActionArea>
+                    <CardActions> 
+                      <Button component={Link} to="/events">
+                        Browse Events
+                      </Button>
+                    </CardActions>
                   </Card>
                 </Grid>
 
