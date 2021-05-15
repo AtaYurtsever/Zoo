@@ -1,6 +1,28 @@
-const { insertGiftshop, insertGiftshopManager } = require("./insert")
+
+
+
+const { insertGiftshop, insertGiftshopManager, insertAnimal, insertFood } = require("./insert")
 
 const date = "2000-05-17T08:04:00.000Z";
+
+const populateFood = () => {
+    
+    insertFood({
+        stock:200,
+        name:"Banana"
+    })
+
+    insertFood({
+        stock:350,
+        name:"Cajun Corner Menu 1"
+    })
+
+    insertFood({
+        stock:600,
+        name:"Minestrone Corba"
+    })
+}
+
 const populategiftShops = () => {
     insertGiftshop({
         name:"Petsrus",
@@ -60,6 +82,7 @@ const populategiftShops = () => {
 
 const populate = ()=>{
     populategiftShops()
+    populateFood()
 }
 
 exports.populate = populate;

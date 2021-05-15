@@ -1,4 +1,30 @@
 const { getClient } = require("./db")
+const { v4 : uuidv4 } = require('uuid');
+
+const insertFood = (v) => {
+    const u1 = uuidv4();
+    const insertFoodText = `
+        INSERT INTO Food
+            (food_id, stock, name) VALUES
+            ('${u1}', '${v.stock}', '${v.name}');`
+    const client = getClient();
+    client.query(insertFoodText, (err,res) =>{
+        if(err!=null) console.log(err, insertFoodText);
+    })
+}
+
+// type vaccine to be added.
+const insertAnimal = (v) => {
+    const insertAnimalText = `
+        INSERT INTO Animals
+            (name, type, gender, weight, birthday, biography, notable_features, food_id, cage_id)
+            VALUES
+            ('${v.name}', '${type}', '${gender}', '${weight}, '${birthday}', '${biography}', '${notable_features}', '${food_id}', '${cage_id}');`
+    const client = getClient();
+    client.query(insertAnimalText, (err, res) => {
+        if(err!=null) console.log(err, insertAnimalText);
+    })
+}
 
 
 const insertVisitor = (v) => {
@@ -56,3 +82,5 @@ const insertGiftshopManager = (v) => {
 exports.insertGiftshop = insertGiftshop;
 exports.insertGiftshopManager = insertGiftshopManager;
 exports.insertVisitor = insertVisitor;
+exports.insertFood = insertFood;
+exports.insertAnimal = insertAnimal;
