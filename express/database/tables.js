@@ -3,34 +3,36 @@ const { getClient } =  require('./db');
 exports.createTables =  function createTables(){
     const client = getClient()
 
-    client.query(`DROP TABLE visitor;
-                  DROP TABLE giftshopManager;
-                  DROP TABLE Animals;
-                  DROP TABLE Coordinator;
-                  DROP TABLE Veterinarian;
-                  DROP TABLE Food;
-                  DROP TABLE Gift;
-                  DROP TABLE giftshop;
-                  DROP TABLE Event;
-                  DROP TABLE Conservation_Organization;
-                  DROP TABLE Educational_Event;
-                  DROP TABLE Group_Tour;
-                  DROP TABLE Comment;
-                  DROP TABLE Complaint_Form;
-                  DROP TABLE Donation;
-                  DROP TABLE attends;
+    var qry = ''
+    qry +=`       DROP TABLE attends;
                   DROP TABLE joins;
                   DROP TABLE invite;
                   DROP TABLE g_has_c;
                   DROP TABLE g_has_f;
                   DROP TABLE respond_to;
                   DROP TABLE creates;
+                  DROP TABLE Comment;
+                  DROP TABLE Complaint_Form;
+                  DROP TABLE giftshopManager;
+                  DROP TABLE Gift;
+                  DROP TABLE giftshop;
+                  DROP TABLE Donation;
+                  DROP TABLE Conservation_Organization;
+                  DROP TABLE Educational_Event;
+                  DROP TABLE Animals;
+                  DROP TABLE Veterinarian;
+                  DROP TABLE Group_Tour;
+                  DROP TABLE Event;
+                  DROP TABLE Coordinator;
                   DROP TABLE employee;
-                  DROP TABLE zooUser;`, (err, res) => {
-        if(err!== null) console.log(err );
-    })
+                  DROP TABLE visitor;
+                  DROP TABLE zooUser;
+                  DROP TABLE Food;
+                  ` 
+         
+     
 
-    client.query(`CREATE TABLE zooUser
+    qry +=`CREATE TABLE zooUser
                 (username varchar(20) PRIMARY KEY, 
                 password varchar(40) NOT NULL,
                 name char(40),
@@ -38,56 +40,57 @@ exports.createTables =  function createTables(){
                 sex char(1), 
                 phone bigint, 
                 email varchar(100) UNIQUE,
-                birthday DATE)`, (err, res) => {
-        if(err!== null) console.log(err );
-    })
+                birthday DATE);` 
+         
+     
 
-    client.query(`CREATE TABLE Visitor
+    qry +=`CREATE TABLE Visitor
                     (username varchar(20) PRIMARY KEY,
                     total_money money,
-                    FOREIGN KEY (username) REFERENCES zooUser(username))`, (err, res) => {
-        if(err!== null) console.log(err );
-    })
+                    FOREIGN KEY (username) REFERENCES zooUser(username));` 
+         
+     
 
-    client.query(`CREATE TABLE Employee
+    qry +=`CREATE TABLE Employee
                     (username varchar(20) PRIMARY KEY,
                     salary money,
                     job_title varchar(20),
-                    FOREIGN KEY (username) REFERENCES zooUser(username))`, (err, res) => {
-        if(err!== null) console.log(err );
-    })
+                    FOREIGN KEY (username) REFERENCES zooUser(username));` 
+         
+     
 
     //TODO: maybe add location
-    client.query(`CREATE TABLE Giftshop
+    qry +=`CREATE TABLE Giftshop
                     (name varchar(40) PRIMARY KEY,
                     address text,
-                    opening_date date)`, (err, res) => {
-        if(err!== null) console.log(err );
-    })
+                    opening_date date);` 
+         
+     
 
-    client.query(`CREATE TABLE GiftshopManager
+    qry +=`CREATE TABLE GiftshopManager
                     (username varchar(20) PRIMARY KEY,
                     shop_name varchar(40) NOT NULL,
                     FOREIGN KEY (shop_name) REFERENCES giftShop(name),
-                    FOREIGN KEY (username) REFERENCES employee(username))`, (err, res) => {
-        if(err!== null) console.log(err );
-    })
+                    FOREIGN KEY (username) REFERENCES employee(username));` 
+         
+     
 
-    // client.query(`CREATE TABLE Animal_Curator
+    // qry +=`CREATE TABLE Animal_Curator
     //                 (username varchar(20) PRIMARY KEY,
     //                 stipend decimal,
-    //                 FOREIGN KEY (username) REFERENCES employee(username))`, (err, res) => {
-    //     if(err!=null) console.log(err);
-    // })
+    //                 FOREIGN KEY (username) REFERENCES employee(username))` 
+    //      
+    //  
 
-    client.query(`CREATE TABLE Food
+    qry +=`CREATE TABLE Food
                     (food_id uuid PRIMARY KEY,
                     stock decimal,
-                    name char(120))`, (err,res) => {
-        if(err!=null) console.log(err);
-    })
+                    name char(120));` 
+         
+     
 
-    client.query(`CREATE TABLE Animals
+                    //TODO: CAGE ID
+    qry +=`CREATE TABLE Animals
                     (name char(40),
                     type char(120),
                     gender char(1),
@@ -98,189 +101,187 @@ exports.createTables =  function createTables(){
                     food_id uuid,
                     cage_id uuid,
                     PRIMARY KEY(name, type),
-                    FOREIGN KEY(food_id) REFERENCES Food)`, (err, res) => {
-        if(err!=null) console.log(err);
-    })
+                    FOREIGN KEY(food_id) REFERENCES Food);` 
+         
+     
 
-    client.query(`CREATE TABLE Veterinarian
+    qry +=`CREATE TABLE Veterinarian
                     (username varchar(20) PRIMARY KEY, 
                     degree text,
-                    FOREIGN KEY username REFERENCES employee(username))`, (err, res) => {
-        if(err!=null) console.log(err);
-    })
+                    FOREIGN KEY (username) REFERENCES employee(username));` 
+         
+     
     
-    client.query(`CREATE TABLE Coordinator
+    qry +=`CREATE TABLE Coordinator
                     (username varchar(20) PRIMARY KEY, 
                     degree text,
-                    FOREIGN KEY username REFERENCES employee(username))`, (err, res) => {
-        if(err!=null) console.log(err);
-    })
+                    FOREIGN KEY (username) REFERENCES employee(username));` 
+         
+     
 
     // EVENT RELATED ENTITY TABLES
-    client.query(`CREATE TABLE Event
+    qry +=`CREATE TABLE Event
                     (event_name VARCHAR(40),
                     event_date DATE,
                     explanation text,
                     length decimal,
                     coord_un VARCHAR(20),
                     PRIMARY KEY (event_name, event_date),
-                    FOREIGN KEY (coord_un) REFERENCES Coordinator(username))`, (err, res) => {
-        if(err!== null) console.log(err );
-    })
+                    FOREIGN KEY (coord_un) REFERENCES Coordinator(username));` 
+         
+     
 
-    client.query(`CREATE TABLE  Conservation_Organization
+    qry +=`CREATE TABLE  Conservation_Organization
                     ( event_name varchar(40),
                     event_date date,
                     purpose text,
                     target_money decimal,
                     target_place char(40),
                     PRIMARY KEY (event_name, event_date),
-                    FOREIGN KEY (event_name, event_date) REFERENCES Event(event_name, event_date))`, (err, res) => {
-        if(err!== null) console.log(err );
-    })
+                    FOREIGN KEY (event_name, event_date) REFERENCES Event(event_name, event_date));` 
+         
+     
 
-    client.query(`CREATE TABLE  Educational_Event
+    qry +=`CREATE TABLE  Educational_Event
                     ( event_name varchar(40),
                     event_date date,
                     topic text,
                     PRIMARY KEY (event_name, event_date),
-                    FOREIGN KEY (event_name, event_date) REFERENCES Event(event_name, event_date))`, (err, res) => {
-        if(err!== null) console.log(err );
-    })
+                    FOREIGN KEY (event_name, event_date) REFERENCES Event(event_name, event_date));` 
+         
+     
 
-    client.query(`CREATE TABLE  Group_Tour
+    qry +=`CREATE TABLE  Group_Tour
                     ( event_name varchar(40),
                     event_date date,
                     capacity int, 
                     price decimal,
                     PRIMARY KEY (event_name, event_date),
-                    FOREIGN KEY (event_name, event_date) REFERENCES Event(event_name, event_date)))`, (err, res) => {
-        if(err!== null) console.log(err );
-    })
+                    FOREIGN KEY (event_name, event_date) REFERENCES Event(event_name, event_date));` 
+         
+     
 
-    client.query(`CREATE TABLE  Comment
+    qry +=`CREATE TABLE  Comment
                     (comment_id uuid PRIMARY KEY,
                     message varchar(40),
-                    comment_date date)`, (err, res) => {
-        if(err!== null) console.log(err );
-    })
+                    comment_date date);` 
+         
+     
 
-    client.query(`CREATE TABLE  Complaint_Form
+    qry +=`CREATE TABLE  Complaint_Form
                     ( event_name varchar(40), 
                     form_id uuid PRIMARY KEY,
                     message text,
                     complaint_type  varchar(40),
                     response  text,
-                    complaint_date date)`, (err, res) => {
-        if(err!== null) console.log(err );
-    })
+                    complaint_date date);` 
+         
+     
 
     // EVENT RELATED RELATION TABLES
     
-    client.query(`CREATE TABLE  Donation
-                    ( revent_name  varchar(40), 
+    qry +=`CREATE TABLE  Donation
+                    ( event_name  varchar(40), 
                     date date, 
                     username varchar(20),
                     amount money,
                     FOREIGN KEY (event_name, date) REFERENCES Conservation_Organization,
                     FOREIGN KEY (username) REFERENCES Visitor,
-                    PRIMARY KEY(event_name, date, username))`, (err, res) => {
-        if(err!== null) console.log(err );
-    })
+                    PRIMARY KEY(event_name, date, username));` 
+         
+     
 
-    client.query(`CREATE TABLE  attends
+    qry +=`CREATE TABLE  attends
                     ( event_name varchar(40),
                     username varchar(20),
                     event_date date,
                     FOREIGN KEY (event_name, event_date) REFERENCES Educational_Event(event_name, event_date),
                     FOREIGN KEY (username) REFERENCES Visitor(username),
-                    PRIMARY KEY (username, event_name, event_date))`, (err, res) => {
-        if(err!== null) console.log(err );
-    })
+                    PRIMARY KEY (username, event_name, event_date));` 
+         
+     
 
-    client.query(`CREATE TABLE  joins
+    qry +=`CREATE TABLE  joins
                     ( event_name  varchar(40), 
                     date date, 
                     username varchar(20),
                     FOREIGN KEY (event_name, date) REFERENCES Group_Tour,
                     FOREIGN KEY (username) REFERENCES Visitor,
-                    PRIMARY KEY(event_name, date, username))`, (err, res) => {
-        if(err!== null) console.log(err );
-    })
+                    PRIMARY KEY(event_name, date, username));` 
+         
+     
 
-    client.query(`CREATE TABLE  invite
+    qry +=`CREATE TABLE  invite
                     ( event_name varchar(40),
                     event_date date,
                     inviter varchar(20), 
                     invitee varchar(20), 
                     request_status char(1),
                     PRIMARY KEY (event_name, event_date, inviter, invitee),
-                    FOREIGN KEY (event_name, event_date) REFERENCES Educational_Event(name, date),
+                    FOREIGN KEY (event_name, event_date) REFERENCES Educational_Event(event_name, event_date),
                     FOREIGN KEY (inviter) REFERENCES Coordinator(username),
-                    FOREIGN KEY (invitee) REFERENCES Veterinarian(username))`, (err, res) => {
-        if(err!== null) console.log(err );
-    })
+                    FOREIGN KEY (invitee) REFERENCES Veterinarian(username));` 
+         
+     
 
-    client.query(`CREATE TABLE  g_has_c
+    qry +=`CREATE TABLE  g_has_c
                     ( comment_id uuid PRIMARY KEY,  
                     message text,
                     event_date date,
                     username  varchar(20),
                     event_name varchar(40),
-                    FOREIGN KEY (event_name, event_date) REFERENCES Group_Tour,
-                    FOREIGN KEY (username ) REFERENCES Visitor)`, (err, res) => {
-        if(err!== null) console.log(err );
-    })
+                    FOREIGN KEY (event_name, event_date) REFERENCES Group_tour,
+                    FOREIGN KEY (username ) REFERENCES Visitor);` 
+         
+     
 
-    client.query(`CREATE TABLE  g_has_f
+    qry +=`CREATE TABLE  g_has_f
                     ( form_id uuid PRIMARY KEY, 
                     message text,
                     event_date date,
                     complaint_type varchar(20),
                     username varchar(20),
                     event_name varchar(40),
-                    FOREIGN KEY (event_name, event_date) REFERENCES Group_Tour,
-                    FOREIGN KEY (username) REFERENCES Visitor)`, (err, res) => {
-        if(err!== null) console.log(err );
-    })
+                    FOREIGN KEY (event_name, event_date) REFERENCES Group_tour,
+                    FOREIGN KEY (username) REFERENCES Visitor);` 
+         
+     
 
-    client.query(`CREATE TABLE  respond_to
+    qry +=`CREATE TABLE  respond_to
                     ( form_id uuid PRIMARY KEY, 
                     username varchar(20) NOT NULL,
                     status bool NOT NULL,
                     response_txt text,
                     FOREIGN KEY (form_id ) REFERENCES Complaint_Form,
-                    FOREIGN KEY (username) REFERENCES Coordinator(username))`, (err, res) => {
-        if(err!== null) console.log(err );
-    })
+                    FOREIGN KEY (username) REFERENCES Coordinator(username));` 
+         
+     
 
-    client.query(`CREATE TABLE  creates
+    qry +=`CREATE TABLE  creates
                     (event_name varchar(40),
                     event_date date,
                     username varchar(20),
-                    FOREIGN KEY username REFERENCES Coordinator(username),
-                    FOREIGN KEY (event_name) REFERENCES Event(event_name),
-                    FOREIGN KEY (event_date) REFERENCES Event(event_date),
-                    PRIMARY KEY (event_name, event_date)))`, (err, res) => {
-        if(err!== null) console.log(err );
-    })
+                    FOREIGN KEY (username) REFERENCES Coordinator(username),
+                    FOREIGN KEY (event_name, event_date) REFERENCES Event(event_name, event_date),
+                    PRIMARY KEY (event_name, event_date));` 
+         
+     
     
 
     //TODO: add animals
-    client.query(`CREATE TABLE Gift
+    qry +=`CREATE TABLE Gift
                     ( product_code uuid PRIMARY KEY,
                     price money,
                     name varchar(40),
                     animal_name char(40),
                     animal_type char(120),
                     shop varchar(40),
-                    discount decimal(3,2),` +
-                    //FOREIGN KEY (animal_name, animal_type) REFERENCES Animal(name, type),
-                    `FOREIGN KEY (shop) REFERENCES Giftshop(name) )
-                    `, (err, res) => {
-    
-        if(err!== null) console.log(err );
-    })
-    
+                    discount decimal(3,2),
+                    FOREIGN KEY (animal_name, animal_type) REFERENCES Animals(name, type),
+                    FOREIGN KEY (shop) REFERENCES Giftshop(name) );
+                    ` 
+
+    console.log(qry);
+    client.query(qry,  (err,res) => {console.log(err,res)})    
 
 }

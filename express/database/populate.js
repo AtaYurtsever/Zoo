@@ -6,13 +6,61 @@ const date = "2000-05-17T08:04:00.000Z";
 console.log(uuid4);
 const populateAnimal = () => {
     insertAnimal({
-        name:"Animal 1",
+        name:"Mr. Tuxedo",
         type:"Penguin",
         gender:'M',
         weight:30.0,
         birthday:date,
         biography:"penguen dogdu penguen mutlu",
         notable_features:"penguenim",
+        food_id:uuid7,
+        cage_id:uuid4
+    })
+
+    insertAnimal({
+        name:"Kicky",
+        type:"panda",
+        gender:'M',
+        weight:30.0,
+        birthday:date,
+        biography:"kicking around",
+        notable_features:"not a penguin",
+        food_id:uuid7,
+        cage_id:uuid4
+    })
+
+    insertAnimal({
+        name:"Punchy",
+        type:"panda",
+        gender:'M',
+        weight:30.0,
+        birthday:date,
+        biography:"punching around",
+        notable_features:"not a penguin",
+        food_id:uuid7,
+        cage_id:uuid4
+    })
+
+    insertAnimal({
+        name:"Aristo",
+        type:"red panda",
+        gender:'M',
+        weight:30.0,
+        birthday:date,
+        biography:"thinking around",
+        notable_features:"not a penguin",
+        food_id:uuid7,
+        cage_id:uuid4
+    })
+
+    insertAnimal({
+        name:"Pinchy",
+        type:"crab",
+        gender:'M',
+        weight:30.0,
+        birthday:date,
+        biography:"getting eaten around",
+        notable_features:"not a penguin",
         food_id:uuid7,
         cage_id:uuid4
     })
@@ -206,9 +254,9 @@ const populateGroupTours = () => {
 }
 
 const populate = ()=>{
-    populategiftShops()
     populateFood()
     populateAnimal()
+    populategiftShops()
     populateGroupTours()
 }
 
