@@ -97,6 +97,19 @@ const insertGift = (v) => {
         
 }
 
+// EVENT RELATED
+const insertGroupTour = (v) => {
+    const qry = `INSERT INTO Group_Tour
+                (event_name, event_date, capacity, price)
+                VALUES ('${v.event_name}', '${v.event_date}', ${v.capacity}, ${v.price})
+                `
+    const client = getClient();
+    client.query(qry, (err,res)=>{
+        if(err!==null) console.log(err,qry);
+    })
+        
+}
+
 exports.insertGiftshop = insertGiftshop;
 exports.insertGiftshopManager = insertGiftshopManager;
 exports.insertVisitor = insertVisitor;
@@ -104,4 +117,6 @@ exports.insertVisitor = insertVisitor;
 exports.insertFood = insertFood;
 exports.insertAnimal = insertAnimal;
 exports.insertGift = insertGift;
+
+exports.insertGroupTour = insertGroupTour;
 

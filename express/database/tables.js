@@ -5,12 +5,12 @@ exports.createTables =  function createTables(){
 
     client.query(`DROP TABLE visitor;
                   DROP TABLE giftshopManager;
-                  DROP TABLE giftshop;
                   DROP TABLE Animals;
                   DROP TABLE Coordinator;
                   DROP TABLE Veterinarian;
                   DROP TABLE Food;
                   DROP TABLE Gift;
+                  DROP TABLE giftshop;
                   DROP TABLE Event;
                   DROP TABLE Conservation_Organization;
                   DROP TABLE Educational_Event;
@@ -192,7 +192,7 @@ exports.createTables =  function createTables(){
                     ( event_name varchar(40),
                     username varchar(20),
                     event_date date,
-                    FOREIGN KEY (event_name, event_date) REFERENCES Educational_event(event_name, event_date),
+                    FOREIGN KEY (event_name, event_date) REFERENCES Educational_Event(event_name, event_date),
                     FOREIGN KEY (username) REFERENCES Visitor(username),
                     PRIMARY KEY (username, event_name, event_date))`, (err, res) => {
         if(err!== null) console.log(err );
@@ -202,7 +202,7 @@ exports.createTables =  function createTables(){
                     ( event_name  varchar(40), 
                     date date, 
                     username varchar(20),
-                    FOREIGN KEY (event_name, date) REFERENCES Conservation_Organization,
+                    FOREIGN KEY (event_name, date) REFERENCES Group_Tour,
                     FOREIGN KEY (username) REFERENCES Visitor,
                     PRIMARY KEY(event_name, date, username))`, (err, res) => {
         if(err!== null) console.log(err );
@@ -227,7 +227,7 @@ exports.createTables =  function createTables(){
                     event_date date,
                     username  varchar(20),
                     event_name varchar(40),
-                    FOREIGN KEY (event_name, event_date) REFERENCES Group_tour,
+                    FOREIGN KEY (event_name, event_date) REFERENCES Group_Tour,
                     FOREIGN KEY (username ) REFERENCES Visitor)`, (err, res) => {
         if(err!== null) console.log(err );
     })
@@ -239,7 +239,7 @@ exports.createTables =  function createTables(){
                     complaint_type varchar(20),
                     username varchar(20),
                     event_name varchar(40),
-                    FOREIGN KEY (event_name, event_date) REFERENCES Group_tour,
+                    FOREIGN KEY (event_name, event_date) REFERENCES Group_Tour,
                     FOREIGN KEY (username) REFERENCES Visitor)`, (err, res) => {
         if(err!== null) console.log(err );
     })

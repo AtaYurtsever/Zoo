@@ -1,10 +1,5 @@
-
-
-
-
-
 const { uuid1, uuid2, uuid3, uuid4, uuid5, uuid6, uuid7, uuid8, uuid9, uuid10 } = require("./uuid");
-const { insertGiftshop, insertGiftshopManager, insertGift, insertAnimal, insertFood } = require("./insert")
+const { insertGroupTour, insertGiftshop, insertGiftshopManager, insertGift, insertAnimal, insertFood } = require("./insert")
 
 
 const date = "2000-05-17T08:04:00.000Z";
@@ -186,10 +181,35 @@ const populategiftShops = () => {
     })
 }
 
+
+const populateGroupTours = () => {
+    insertGroupTour({
+        name:"Lions Tour",
+        address: "lion cages zone",
+        opening_date: date
+    })
+    insertGroupTour({
+        name:"Penguin Exploration",
+        address: "antartica",
+        opening_date: date
+    })
+    insertGroupTour({
+        name:"Planting Activiy",
+        address: "the woods",
+        opening_date: date
+    })
+    insertGroupTour({
+        name:"Bird Watching Event for Kids",
+        address: "bird watching tower",
+        opening_date: date
+    })
+}
+
 const populate = ()=>{
     populategiftShops()
     populateFood()
     populateAnimal()
+    populateGroupTours()
 }
 
 exports.populate = populate;

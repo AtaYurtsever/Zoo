@@ -165,9 +165,12 @@ export function BrowseGroupTours(){
 
 
     useEffect(()=>{
-        axios("https://jsonplaceholder.typicode.com/posts")
+        axios(`http://localhost:3003/gt`)
         .then(data => data.data)
-        .then(data => setGroupTours(data))
+        .then(data => {
+          if(!data.exists) props.setFail(data.message)
+          else setGroupTours(data.groupTours)
+      })
     },[])
 
     return (
@@ -187,7 +190,7 @@ export function BrowseGroupTours(){
       </div>
       <GridList cellHeight={350} >
         {
-            gtours.map(gt => (
+            groupTours.map(gt => (
                 <GridListTile key={gt.title}>
                     <img src={"/gt_logo.jpg"} />
                     <GridListTileBar
