@@ -157,7 +157,7 @@ function App() {
                 <CoInfo/>
               </Route>
               <Route exact path="/shops/:name">
-                <Gifts success={setSuccess} fail={setFail}/>
+                <Gifts success={setSuccess} fail={setFail} user={user}/>
               </Route>
               <Route exact path="/shops">
                 <Shops success={setSuccess} fail={setFail}/>

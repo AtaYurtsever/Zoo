@@ -18,11 +18,21 @@ const useStyles = makeStyles(()=>({
 export function Gifts(props){
     const [gifts, setGifts] = useState([]) 
     const {name} = useParams()
+
+    const buy = (product_code)=>{
+        axios.post(`http://localhost:3003/gift/buy`,{product_code:product_code,username:props.user.username})
+            .then(data => data.data)
+            .then(data => {
+                if(!data.exists) props.fail(data.message);
+                else props.success(data.message);
+            })
+    }
+
     useEffect(()=>{
         axios(`http://localhost:3003/gift/shops/${name}`)
         .then(data => data.data)
         .then(data => {
-            if(!data.exists) props.setFail(data.message)
+            if(!data.exists) props.fail(data.message)
             else setGifts(data.gifts)
         })
     },[])
@@ -40,9 +50,10 @@ export function Gifts(props){
                         title={gift.name}
                         subtitle={parseFloat(gift.discount) === 0 ? gift.price: withDiscount(parseFloat(gift.price), parseFloat(gift.discount))}
                         actionIcon={
-                        <IconButton aria-label={`info about ${gift.name}`}>
+                        props.user && props.user.type === "visitor" ?
+                        <IconButton aria-label={`Buy ${gift.name}`} onClick={(_) => buy(gift.product_code)}>
                             <Shop/>
-                        </IconButton>
+                        </IconButton>: <></>
                     }/>
                     
                     {(parseFloat(gift.discount) !== 0) ?
