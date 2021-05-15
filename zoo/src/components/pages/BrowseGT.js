@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme)=>({
       marginLeft: theme.spacing(3),
       width: 'auto',
     },
+    marginBottom: 30
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),

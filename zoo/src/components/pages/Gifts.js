@@ -43,9 +43,9 @@ export function Gifts(props){
                         <IconButton aria-label={`info about ${gift.name}`}>
                             <Shop/>
                         </IconButton>
-                    }
-                    />
-                    {(parseFloat(gift.discount)!== 0) ?
+                    }/>
+                    
+                    {(parseFloat(gift.discount) !== 0) ?
                         <GridListTileBar
                             titlePosition="top"
                             margin="dense"

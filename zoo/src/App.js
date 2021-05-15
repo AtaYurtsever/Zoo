@@ -20,7 +20,6 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />; 
 }
 
-
 function App() {
   const [user,setUser] = useState(null);
   const [open, setOpen] = useState(false);
@@ -104,7 +103,7 @@ function App() {
               style={{width:"70%", left:"15%"}}
             />
   
-              <DialogActions> 
+            <DialogActions> 
                   <Button component={Link} to="/register" color="primary">
                     Register
                   </Button>
@@ -156,13 +155,12 @@ function App() {
               </Route>
               <Route path="/co_info">
                 <CoInfo/>
-
+              </Route>
               <Route exact path="/shops/:name">
                 <Gifts success={setSuccess} fail={setFail}/>
               </Route>
               <Route exact path="/shops">
                 <Shops success={setSuccess} fail={setFail}/>
-
               </Route>
               <Route path="/">
                 <Welcome user={user} />
