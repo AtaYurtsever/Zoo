@@ -7,7 +7,8 @@ var cors = require('cors')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var giftRouter = require('./routes/gshops')
+var giftRouter = require('./routes/gshops');
+var animalRouter = require('./routes/animals');
 const { createTables } = require('./database/tables');
 const { populate } = require('./database/populate');
 
@@ -30,6 +31,7 @@ populate();
 // app.use('/', indexRouter);
 app.use('/gift', giftRouter )
 app.use('/auth', usersRouter);
+app.use('/animalz', animalRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

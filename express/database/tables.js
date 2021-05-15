@@ -227,7 +227,7 @@ exports.createTables =  function createTables(){
                     ( comment_id uuid PRIMARY KEY,  
                     message text,
                     event_date date,
-                    username  varchar(20),
+                    username varchar(20),
                     event_name varchar(40),
                     FOREIGN KEY (event_name, event_date) REFERENCES Group_tour,
                     FOREIGN KEY (username ) REFERENCES Visitor);` 
