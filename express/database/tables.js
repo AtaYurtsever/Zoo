@@ -80,8 +80,8 @@ exports.createTables =  function createTables(){
                     birthday date,
                     biography text,
                     notable_features text,
-                    food_id uuid NOT NULL,
-                    cage_id uuid NOT NULL,
+                    food_id uuid,
+                    cage_id uuid,
                     PRIMARY KEY(name, type),
                     FOREIGN KEY(food_id) REFERENCES Food)`, (err, res) => {
         if(err!=null) console.log(err);

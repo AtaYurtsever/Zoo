@@ -1,25 +1,46 @@
 
 
 
-const { insertGiftshop, insertGiftshopManager, insertAnimal, insertFood } = require("./insert")
+const { insertGiftshop, insertGiftshopManager, insertAnimal, insertFood } = require("./insert");
+const { uuid1, uuid2, uuid3, uuid4, uuid5, uuid6, uuid7, uuid8, uuid9, uuid10 } = require("./uuid");
 
 const date = "2000-05-17T08:04:00.000Z";
+console.log(uuid4);
+const populateAnimal = () => {
+    insertAnimal({
+        name:"Animal 1",
+        type:"Penguin",
+        gender:'M',
+        weight:30.0,
+        birthday:date,
+        biography:"penguen dogdu penguen mutlu",
+        notable_features:"penguenim",
+        food_id:uuid7,
+        cage_id:uuid4
+    })
+}
 
 const populateFood = () => {
-    
     insertFood({
+        food_id:uuid4,
+        
         stock:200,
         name:"Banana"
     })
-
     insertFood({
+        food_id:uuid3,
         stock:350,
         name:"Cajun Corner Menu 1"
     })
-
     insertFood({
+        food_id:uuid7,
         stock:600,
         name:"Minestrone Corba"
+    })
+    insertFood({
+        food_id:uuid10,
+        stock:5500,
+        name:"Steak"
     })
 }
 
@@ -83,6 +104,7 @@ const populategiftShops = () => {
 const populate = ()=>{
     populategiftShops()
     populateFood()
+    populateAnimal()
 }
 
 exports.populate = populate;
