@@ -8,6 +8,8 @@ exports.createTables =  function createTables(){
                   DROP TABLE employee;
                   DROP TABLE zooUser;
                   DROP TABLE giftshop;
+                  DROP TABLE Animals;
+                  DROP TABLE Food;
                   DROP TABLE Gift;
                   DROP TABLE Event;
                   DROP TABLE Conservation_Organization;
@@ -69,6 +71,34 @@ exports.createTables =  function createTables(){
         if(err!== null) console.log(err );
     })
 
+    // client.query(`CREATE TABLE Animal_Curator
+    //                 (username varchar(20) PRIMARY KEY,
+    //                 stipend decimal,
+    //                 FOREIGN KEY (username) REFERENCES employee(username))`, (err, res) => {
+    //     if(err!=null) console.log(err);
+    // })
+
+    client.query(`CREATE TABLE Food
+                    (food_id uuid PRIMARY KEY,
+                    stock decimal,
+                    name char(120))`, (err,res) => {
+        if(err!=null) console.log(err);
+    })
+
+    client.query(`CREATE TABLE Animals
+                    (name char(40),
+                    type char(120),
+                    gender char(1),
+                    weight float,
+                    birthday date,
+                    biography text,
+                    notable_features text,
+                    food_id uuid,
+                    cage_id uuid,
+                    PRIMARY KEY(name, type),
+                    FOREIGN KEY(food_id) REFERENCES Food)`, (err, res) => {
+        if(err!=null) console.log(err);
+    })
 
     // EVENT RELATED ENTITY TABLES
     client.query(`CREATE TABLE Event
