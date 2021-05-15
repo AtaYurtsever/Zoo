@@ -4,7 +4,13 @@ exports.createTables =  function createTables(){
     const client = getClient()
 
     var qry = ''
-    qry +=`       DROP TABLE attends;
+    qry += `    DROP SCHEMA public CASCADE;
+                CREATE SCHEMA public;
+            `
+                //    grant create on schema public to public
+            //    grant usage on schema public to public`
+                
+    /*qry +=`       DROP TABLE attends;
                   DROP TABLE joins;
                   DROP TABLE invite;
                   DROP TABLE g_has_c;
@@ -28,8 +34,8 @@ exports.createTables =  function createTables(){
                   DROP TABLE visitor;
                   DROP TABLE zooUser;
                   DROP TABLE Food;
-                  ` 
-         
+                 ` 
+    */     
      
 
     qry +=`CREATE TABLE zooUser
