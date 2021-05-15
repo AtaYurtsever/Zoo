@@ -2,9 +2,9 @@
 
 
 
-const { insertGiftshop, insertGiftshopManager, insertAnimal, insertFood } = require("./insert");
+
 const { uuid1, uuid2, uuid3, uuid4, uuid5, uuid6, uuid7, uuid8, uuid9, uuid10 } = require("./uuid");
-const { insertGiftshop, insertGiftshopManager, insertGift } = require("./insert")
+const { insertGiftshop, insertGiftshopManager, insertGift, insertAnimal, insertFood } = require("./insert")
 
 
 const date = "2000-05-17T08:04:00.000Z";
