@@ -30,7 +30,7 @@ exports.createTables =  function createTables(){
                   DROP TABLE zooUser;
                   DROP TABLE Food;
                  ` 
-     
+    
      
 
     qry +=`CREATE TABLE zooUser

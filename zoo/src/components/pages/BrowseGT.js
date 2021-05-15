@@ -159,13 +159,13 @@ export function GtInfo(){
     );
 }
 
-export function BrowseGroupTours(){
-    const [gtours, setGroupTours] = useState([])
+export function BrowseGroupTours(props){
+    const [groupTours, setGroupTours] = useState([])
     const classes = useStyles();
 
 
     useEffect(()=>{
-        axios(`http://localhost:3003/gt`)
+        axios(`http://localhost:3000/gt`)
         .then(data => data.data)
         .then(data => {
           if(!data.exists) props.setFail(data.message)
