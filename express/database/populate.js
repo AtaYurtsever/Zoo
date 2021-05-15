@@ -1,4 +1,4 @@
-const { insertGiftshop, insertGiftshopManager } = require("./insert")
+const { insertGiftshop, insertGiftshopManager, insertGift } = require("./insert")
 
 const date = "2000-05-17T08:04:00.000Z";
 const populategiftShops = () => {
@@ -55,6 +55,88 @@ const populategiftShops = () => {
         salary: 3200,
         job_title: "Giftshop Manager",
         giftshop_name: "Pandas Republic of China"
+    })
+
+    insertGift({
+        name: "Kicky the Panda",
+        price: 120,
+        animal_name:"Kicky",
+        animal_type:"panda",
+        shop:"Pandas Republic of China",
+        discount: 0.05
+    })
+
+    insertGift({
+        name: "Kicky the Panda",
+        price: 120,
+        animal_name:"Kicky",
+        animal_type:"panda",
+        shop:"Pandas Republic of China",
+        discount: 0.05
+    })
+
+    insertGift({
+        name: "Kicky the Panda",
+        price: 120,
+        animal_name:"Kicky",
+        animal_type:"panda",
+        shop:"Pandas Republic of China",
+        discount: 0.05
+    })
+
+    insertGift({
+        name: "(Broken)Kicky the Panda",
+        price: 120,
+        animal_name:"Kicky",
+        animal_type:"panda",
+        shop:"Pandas Republic of China",
+        discount: 0.80
+    })
+
+    insertGift({
+        name: "Cheap Tea",
+        price: 5,
+        animal_name:"Punchy",
+        animal_type:"panda",
+        shop:"Pandas Republic of China",
+        discount: 0
+    })
+
+    
+    insertGift({
+        name: "Cheap Tea",
+        price: 5,
+        animal_name:"Punchy",
+        animal_type:"panda",
+        shop:"Pandas Republic of China",
+        discount: 0
+    })
+
+    insertGift({
+        name: "Expensive Tea",
+        price: 500,
+        animal_name:"Aristo",
+        animal_type:"red panda",
+        shop:"Pandas Republic of China",
+        discount: 0
+    })
+
+    insertGift({
+        name: "Pincer",
+        price: 20,
+        animal_name:"Pinchy",
+        animal_type:"crab",
+        shop:"Nsects",
+        discount: 0
+    })
+
+    insertGift({
+        name: "Meat",
+        price: 120,
+        animal_name:"Pinchy",
+        animal_type:"crab",
+        shop:"Nsects",
+        discount: 0
     })
 }
 

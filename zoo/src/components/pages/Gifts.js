@@ -2,7 +2,7 @@ import { GridList, GridListTile, GridListTileBar, IconButton, makeStyles } from 
 import { Info, Shop } from "@material-ui/icons"
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const useStyles = makeStyles(()=>({
     gridList: {
@@ -11,29 +11,33 @@ const useStyles = makeStyles(()=>({
   },
 }))
 
-
-export function Shops(props){
-    const [shops, setShops] = useState([])
-
+export function Gifts(props){
+    const [gifts, setGifts] = useState([]) 
+    const {name} = useParams()
     useEffect(()=>{
-        axios("http://localhost:3003/gift/shops")
+        axios(`http://localhost:3003/gift/shops/${name}`)
         .then(data => data.data)
         .then(data => {
             if(!data.exists) props.setFail(data.message)
-            else setShops(data.shops)
+            else setGifts(data.gifts)
         })
     },[])
 
-    return <GridList cellHeight={350} >
+    return <>
+    <h1>Welcome to {name}!</h1>
+    <h2>We are very proud to display our {gifts.length} items.</h2>
+    <GridList cellHeight={150} >
         {
-            shops.map((shop,index) => (
-                <GridListTile key={shop.name}>
+            gifts.map((gift,index) => (
+                <GridListTile key={gift.name}>
                     <img src={`/shop/p${index%3}.jpg`} />
                     <GridListTileBar
                         margin="dense"
-                        title={shop.name}
-                            actionIcon={
-                        <IconButton aria-label={`info about ${shop.name}`}  component={Link} to={`/shops/${shop.name}`}>
+                        cols={2}
+                        title={gift.name}
+                        subtitle={gift.price}
+                        actionIcon={
+                        <IconButton aria-label={`info about ${gift.name}`}>
                             <Shop/>
                         </IconButton>
                     }
@@ -42,4 +46,5 @@ export function Shops(props){
             ))
         }
     </GridList>
+    </>
 }

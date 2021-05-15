@@ -9,6 +9,7 @@ import axios from 'axios';
 import { AccountCircle } from "@material-ui/icons";
 import { Pets } from "@material-ui/icons"
 import { Shops } from "./components/pages/Shops";
+import { Gifts } from "./components/pages/Gifts";
 //user.type
 
 function Alert(props) {
@@ -130,7 +131,10 @@ function App() {
               <Route path="/animals">
                 <Animals/>
               </Route>
-              <Route path="/shops">
+              <Route exact path="/shops/:name">
+                <Gifts success={setSuccess} fail={setFail}/>
+              </Route>
+              <Route exact path="/shops">
                 <Shops success={setSuccess} fail={setFail}/>
               </Route>
               <Route path="/">

@@ -33,5 +33,16 @@ const allShops = async () => {
     })
 }
 
+const gifts = async(shop) => {
+    const qry = `select * from gift where shop = '${shop}'`
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => {
+        if(err) return {exists: false, gifts: null, message: "Uh oh there is a server error"}
+        else return {exists: true, gifts: res.rows, message: "All is fine"};
+    })
+}
+
 exports.login = login;
 exports.allShops = allShops;
+exports.gifts = gifts;
