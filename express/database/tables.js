@@ -3,6 +3,15 @@ const { getClient } =  require('./db');
 
 exports.createTables =  function createTables(){
     const client = getClient()
+
+    client.query(`DROP TABLE visitor;
+                  DROP TABLE giftshopManager;
+                  DROP TABLE employee;
+                  DROP TABLE zooUser;
+                  DROP TABLE giftshop;`, (err, res) => {
+        if(err!== null) console.log(err );
+    })
+
     client.query(`CREATE TABLE zooUser
                 (username varchar(20) PRIMARY KEY, 
                 password varchar(40) NOT NULL,
@@ -12,14 +21,38 @@ exports.createTables =  function createTables(){
                 phone bigint, 
                 email varchar(100) UNIQUE,
                 birthday DATE)`, (err, res) => {
-        console.log(err,res);
+        if(err!== null) console.log(err );
     })
 
     client.query(`CREATE TABLE Visitor
                     (username varchar(20) PRIMARY KEY,
                     total_money money,
                     FOREIGN KEY (username) REFERENCES zooUser(username))`, (err, res) => {
-        console.log(err,res);
+        if(err!== null) console.log(err );
     })
-    
+
+    client.query(`CREATE TABLE Employee
+                    (username varchar(20) PRIMARY KEY,
+                    salary money,
+                    job_title varchar(20),
+                    FOREIGN KEY (username) REFERENCES zooUser(username))`, (err, res) => {
+        if(err!== null) console.log(err );
+    })
+
+    //TODO: maybe add location
+    client.query(`CREATE TABLE Giftshop
+                    (name varchar(40) PRIMARY KEY,
+                    address text,
+                    opening_date date)`, (err, res) => {
+        if(err!== null) console.log(err );
+    })
+
+    client.query(`CREATE TABLE GiftshopManager
+                    (username varchar(20) PRIMARY KEY,
+                    shop_name varchar(40) NOT NULL,
+                    FOREIGN KEY (shop_name) REFERENCES giftShop(name),
+                    FOREIGN KEY (username) REFERENCES employee(username))`, (err, res) => {
+        if(err!== null) console.log(err );
+    })
+
 }

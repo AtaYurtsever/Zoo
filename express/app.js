@@ -7,6 +7,8 @@ var cors = require('cors')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const { createTables } = require('./database/tables');
+const { populate } = require('./database/populate');
 
 var app = express();
 
@@ -21,7 +23,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+createTables();
+populate();
+
+// app.use('/', indexRouter);
 app.use('/auth', usersRouter);
 
 // catch 404 and forward to error handler
