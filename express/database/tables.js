@@ -5,10 +5,10 @@ exports.createTables =  function createTables(){
 
     client.query(`DROP TABLE visitor;
                   DROP TABLE giftshopManager;
-                  DROP TABLE employee;
-                  DROP TABLE zooUser;
                   DROP TABLE giftshop;
                   DROP TABLE Animals;
+                  DROP TABLE Coordinator;
+                  DROP TABLE Veterinarian;
                   DROP TABLE Food;
                   DROP TABLE Gift;
                   DROP TABLE Event;
@@ -23,8 +23,10 @@ exports.createTables =  function createTables(){
                   DROP TABLE invite;
                   DROP TABLE g_has_c;
                   DROP TABLE g_has_f;
-                  DROP TABLE respond-to;
-                  DROP TABLE create;`, (err, res) => {
+                  DROP TABLE respond_to;
+                  DROP TABLE creates;
+                  DROP TABLE employee;
+                  DROP TABLE zooUser;`, (err, res) => {
         if(err!== null) console.log(err );
     })
 
@@ -100,13 +102,27 @@ exports.createTables =  function createTables(){
         if(err!=null) console.log(err);
     })
 
+    client.query(`CREATE TABLE Veterinarian
+                    (username varchar(20) PRIMARY KEY, 
+                    degree text,
+                    FOREIGN KEY username REFERENCES employee(username))`, (err, res) => {
+        if(err!=null) console.log(err);
+    })
+    
+    client.query(`CREATE TABLE Coordinator
+                    (username varchar(20) PRIMARY KEY, 
+                    degree text,
+                    FOREIGN KEY username REFERENCES employee(username))`, (err, res) => {
+        if(err!=null) console.log(err);
+    })
+
     // EVENT RELATED ENTITY TABLES
     client.query(`CREATE TABLE Event
                     (event_name VARCHAR(40),
                     event_date DATE,
                     explanation text,
                     length decimal,
-                    coord_un VARCHAR(20)
+                    coord_un VARCHAR(20),
                     PRIMARY KEY (event_name, event_date),
                     FOREIGN KEY (coord_un) REFERENCES Coordinator(username))`, (err, res) => {
         if(err!== null) console.log(err );
@@ -175,8 +191,8 @@ exports.createTables =  function createTables(){
     client.query(`CREATE TABLE  attends
                     ( event_name varchar(40),
                     username varchar(20),
-                    event_date date
-                    FOREIGN KEY (event_name, event_date) REFERENCES Educational_event(event_name, event_date) 
+                    event_date date,
+                    FOREIGN KEY (event_name, event_date) REFERENCES Educational_event(event_name, event_date),
                     FOREIGN KEY (username) REFERENCES Visitor(username),
                     PRIMARY KEY (username, event_name, event_date))`, (err, res) => {
         if(err!== null) console.log(err );
@@ -185,7 +201,7 @@ exports.createTables =  function createTables(){
     client.query(`CREATE TABLE  joins
                     ( event_name  varchar(40), 
                     date date, 
-                    username varchar(20)
+                    username varchar(20),
                     FOREIGN KEY (event_name, date) REFERENCES Conservation_Organization,
                     FOREIGN KEY (username) REFERENCES Visitor,
                     PRIMARY KEY(event_name, date, username))`, (err, res) => {
@@ -228,7 +244,7 @@ exports.createTables =  function createTables(){
         if(err!== null) console.log(err );
     })
 
-    client.query(`CREATE TABLE  respond-to
+    client.query(`CREATE TABLE  respond_to
                     ( form_id uuid PRIMARY KEY, 
                     username varchar(20) NOT NULL,
                     status bool NOT NULL,
@@ -238,7 +254,7 @@ exports.createTables =  function createTables(){
         if(err!== null) console.log(err );
     })
 
-    client.query(`CREATE TABLE  create
+    client.query(`CREATE TABLE  creates
                     (event_name varchar(40),
                     event_date date,
                     username varchar(20),
