@@ -11,11 +11,26 @@ const { insertConservationOrganization,
      insertVeterinarian, 
      insertInvite,
      insertKeeper,
-     insertTreatment } = require("./insert")
+     insertTreatment, 
+     insertCage,
+     insertAssign} = require("./insert")
 
 
 const date = "2000-05-17T08:04:00.000Z";
 console.log(uuid4);
+
+const populateCage = () => {
+    insertCage({
+        id: uuid4,
+        address: "cage 4: somewhere cold",
+    })
+
+    insertCage({
+        id: uuid5,
+        address: "cage 5: somewhere else",
+    })
+}
+
 const populateAnimal = () => {
     insertAnimal({
         name:"Mr. Tuxedo",
@@ -50,7 +65,7 @@ const populateAnimal = () => {
         biography:"punching around",
         notable_features:"not a penguin",
         food_id:uuid7,
-        cage_id:uuid4
+        cage_id:uuid5
     })
 
     insertAnimal({
@@ -62,7 +77,7 @@ const populateAnimal = () => {
         biography:"thinking around",
         notable_features:"not a penguin",
         food_id:uuid7,
-        cage_id:uuid4
+        cage_id:uuid5
     })
 
     insertAnimal({
@@ -418,9 +433,26 @@ const populateTreatmentInvite = () => {
         inviter: "coord1",
         invitee: "vetty"
     })
+
+    insertAssign({
+        keeper: "keepy",
+        coord: "coord1",
+        cage: uuid4,
+        start:date,
+        end:date
+    })
+
+    insertAssign({
+        keeper: "keepy",
+        coord: "coord1",
+        cage: uuid5,
+        start:date,
+        end:date
+    })
 }
 
 const populate = ()=>{
+    populateCage()
     populateFood()
     populateAnimal()
     populategiftShops()
