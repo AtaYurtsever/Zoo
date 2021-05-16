@@ -165,7 +165,7 @@ export function BrowseGroupTours(props){
 
 
     useEffect(()=>{
-        axios(`http://localhost:3000/gt`)
+        axios(`http://localhost:3003/gt`)
         .then(data => data.data)
         .then(data => {
           if(!data.exists) props.setFail(data.message)
