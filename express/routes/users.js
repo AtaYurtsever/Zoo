@@ -1,6 +1,6 @@
 var express = require('express');
-const { login } = require('../database/get');
-const { insertVisitor } = require('../database/insert');
+const { login, visitor, gsm } = require('../database/get');
+const { insertVisitor, addMoney } = require('../database/insert');
 var router = express.Router();
 
 router.post('/register', function(req, res, next) {
@@ -10,6 +10,18 @@ router.post('/register', function(req, res, next) {
 
 router.post('/login', async function(req, res, next) {
   login(req.body.username, req.body.password).then(v => res.send(v))
+});
+
+router.post('/visitor', async function(req, res, next) {
+  visitor(req.body.username).then(v => res.send(v))
+});
+
+router.post('/gsm', async function(req, res, next) {
+  gsm(req.body.username).then(v => res.send(v))
+});
+
+router.post('/money', async function(req, res, next) {
+  addMoney(req.body).then(v => res.send(v))
 });
 
 module.exports = router;

@@ -161,12 +161,25 @@ const buy = async (v) => {
     })
 } 
 
+const addMoney = async (v) => {
+    const qry = ` update visitor set total_money = total_money+'₺${v.amount}' where username ='${v.username}';`
+    
+    const client = getClient();
+    return client.query(qry).then((res,err)=>{
+        if(err) return {exists: false,  message: "Uh oh there is a server error"}
+        else return {exists: true,  message: "Money updated, Cheers!"}
+         
+    })
+
+}
+
 exports.insertGiftshop = insertGiftshop;
 exports.insertGiftshopManager = insertGiftshopManager;
 exports.insertVisitor = insertVisitor;
 exports.insertFood = insertFood;
 exports.insertAnimal = insertAnimal;
 exports.insertGift = insertGift;
+exports.addMoney = addMoney;
 
 exports.insertGroupTour = insertGroupTour;
 exports.insertCoordinators = insertCoordinators;

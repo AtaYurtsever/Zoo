@@ -1,5 +1,5 @@
 var express = require('express');
-const { allShops, gifts } = require('../database/get');
+const { allShops, gifts, profit, soldStuff } = require('../database/get');
 const { buy } = require('../database/insert');
 const { createTables } = require('../database/tables');
 var router = express.Router();
@@ -16,6 +16,14 @@ router.get('/shops/:shop', async function(req, res, next) {
 router.post('/buy', async function(req, res, next) {
   console.log(req.body);
   buy(req.body).then(val => res.send(val))  
+});
+
+router.post('/profit', async function(req, res, next) {
+  profit(req.body.username).then(v => res.send(v))
+});
+
+router.post('/soldStuff', async function(req, res, next) {
+  soldStuff(req.body.username).then(v => res.send(v))
 });
 
 module.exports = router;
