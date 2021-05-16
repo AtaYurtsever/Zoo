@@ -1,5 +1,5 @@
 const { uuid1, uuid2, uuid3, uuid4, uuid5, uuid6, uuid7, uuid8, uuid9, uuid10 } = require("./uuid");
-const { insertCoordinators, insertGroupTour, insertGiftshop, insertGiftshopManager, insertGift, insertAnimal, insertFood } = require("./insert")
+const { insertCoordinators, insertGroupTour, insertGiftshop, insertGiftshopManager, insertGift, insertAnimal, insertFood, insertVeterinarian } = require("./insert")
 
 
 const date = "2000-05-17T08:04:00.000Z";
@@ -296,12 +296,28 @@ const populateCoordinators = () => {
     })
 }
 
+const populateVeterinarian = () => {
+    insertVeterinarian({
+        username: "vetty",
+        password: "6789",
+        name: "Vetty",
+        surname: "Bobba",
+        phone: "345435342",
+        email: "bobbaaa@gmail.com",
+        birthday: date,
+        salary: 7650,
+        job_title: "Senior Vetrinarian",
+        degree: "Vet PhD"
+    })
+}
+
 const populate = ()=>{
     populateFood()
     populateAnimal()
     populategiftShops()
     populateCoordinators()
     populateGroupTours()
+    populateVeterinarian()
 }
 
 exports.populate = populate;
