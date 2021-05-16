@@ -1,4 +1,4 @@
-import { Typography, Button, GridList, GridListTile, GridListTileBar, IconButton, makeStyles } from "@material-ui/core"
+import { Typography, Button, GridList, GridListTile, GridListTileBar, IconButton, makeStyles, Dialog } from "@material-ui/core"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import InputBase from '@material-ui/core/InputBase';
@@ -78,6 +78,7 @@ export function CoInfo(props){
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
     const [co, setConsOrg] = useState(null)
+    const [donation, setDonation] = useState(0)
     const {name} = useParams()
    
     const handleExpandClick = () => {
@@ -121,7 +122,8 @@ export function CoInfo(props){
                 <InputLabel htmlFor="standard-adornment-amount">Enter Amount to Donate</InputLabel>
                 <Input
                     id="standard-adornment-amount"
-                    value={""}
+                    value={donation}
+                    onChange={(val)=> setDonation(val.target.value)}
                     startAdornment={<InputAdornment position="start">₺</InputAdornment>}
                 />
             </FormControl>

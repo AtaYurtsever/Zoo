@@ -73,83 +73,83 @@ export function CoordProfile(props){
     </Paper> : <></>
 
 
-    const invitedField = coord ? 
-    <TableContainer component={Paper} className={classes.paper}>
-        <h2>Invited Organizations</h2>
-        <Table aria-label="sold">
-            <TableHead>
-                <TableRow>
-                    <TableCell> c1 </TableCell>
-                    <TableCell> c2</TableCell>
-                    <TableCell> c3 </TableCell>
-                    <TableCell> c4 </TableCell>
-                    <TableCell>  </TableCell>
-                    <TableCell>  </TableCell>
-                </TableRow>
-            // </TableHead>
-            // <TableBody>
-            //     {invited.map((row) => (
-            //         <TableRow key={row.id}>
-            //             <TableCell component="th" scope="row">
-            //                 {row.event_name}
-            //             </TableCell>
-            //             <TableCell align="right">{row.event_date}</TableCell>
-            //             <TableCell align="right">{row.inviter}</TableCell>
-            //             <TableCell align="right">{row.request_status}</TableCell>
-            //             <TableCell align="right">{row.request_status === "a" ?
-            //                 <Button color="primary" onClick={()=>updateInvite("y",row.id)}>Accept</Button> : ""}
-            //             </TableCell>
+    // const invitedField = coord ? 
+    // <TableContainer component={Paper} className={classes.paper}>
+    //     <h2>Invited Organizations</h2>
+    //     <Table aria-label="sold">
+    //         <TableHead>
+    //             <TableRow>
+    //                 <TableCell> c1 </TableCell>
+    //                 <TableCell> c2</TableCell>
+    //                 <TableCell> c3 </TableCell>
+    //                 <TableCell> c4 </TableCell>
+    //                 <TableCell>  </TableCell>
+    //                 <TableCell>  </TableCell>
+    //             </TableRow>
+    //         // </TableHead>
+    //         // <TableBody>
+    //         //     {invited.map((row) => (
+    //         //         <TableRow key={row.id}>
+    //         //             <TableCell component="th" scope="row">
+    //         //                 {row.event_name}
+    //         //             </TableCell>
+    //         //             <TableCell align="right">{row.event_date}</TableCell>
+    //         //             <TableCell align="right">{row.inviter}</TableCell>
+    //         //             <TableCell align="right">{row.request_status}</TableCell>
+    //         //             <TableCell align="right">{row.request_status === "a" ?
+    //         //                 <Button color="primary" onClick={()=>updateInvite("y",row.id)}>Accept</Button> : ""}
+    //         //             </TableCell>
 
-            //             <TableCell align="right">{row.request_status === "a" ?
-            //                 <Button color="secondary" onClick={()=>updateInvite("n",row.iid)}>Decline</Button> : ""}
-            //             </TableCell>
-            //         </TableRow> 
-            //     ))}
-            // </TableBody>
-        </Table>
-    </TableContainer> : <></>         
+    //         //             <TableCell align="right">{row.request_status === "a" ?
+    //         //                 <Button color="secondary" onClick={()=>updateInvite("n",row.iid)}>Decline</Button> : ""}
+    //         //             </TableCell>
+    //         //         </TableRow> 
+    //         //     ))}
+    //         // </TableBody>
+    //     </Table>
+    // </TableContainer> : <></>         
     
-    const requestField = vet ? 
-    <TableContainer component={Paper} className={classes.paper}>
-        <h2>Invited Organizations</h2>
-        <Table aria-label="sold">
-            <TableHead>
-                <TableRow>
-                    <TableCell> id </TableCell>
-                    <TableCell> requested </TableCell>
-                    <TableCell> requester </TableCell>
-                    <TableCell> animal name </TableCell>
-                    <TableCell> animal type </TableCell>
-                    <TableCell> condition </TableCell>
-                    <TableCell> request status </TableCell>
-                    <TableCell>  </TableCell>
-                    <TableCell>  </TableCell>
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {requested.map((row) => (
-                    <TableRow key={row.id}>
-                        <TableCell component="th" scope="row">
-                            {row.id}
-                        </TableCell>
-                        <TableCell align="right">{row.requested}</TableCell>
-                        <TableCell align="right">{row.requester}</TableCell>
-                        <TableCell align="right">{row.animal_name}</TableCell>
-                        <TableCell align="right">{row.animal_type}</TableCell>
-                        <TableCell align="right">{row.condition}</TableCell>
-                        <TableCell align="right">{row.request_status}</TableCell>
-                        <TableCell align="right">{row.request_status === "a" ?
-                            <Button color="primary" onClick={()=>updateTreatment("y",row.id)}>Accept</Button> : ""}
-                        </TableCell>
+    // const requestField = vet ? 
+    // <TableContainer component={Paper} className={classes.paper}>
+    //     <h2>Invited Organizations</h2>
+    //     <Table aria-label="sold">
+    //         <TableHead>
+    //             <TableRow>
+    //                 <TableCell> id </TableCell>
+    //                 <TableCell> requested </TableCell>
+    //                 <TableCell> requester </TableCell>
+    //                 <TableCell> animal name </TableCell>
+    //                 <TableCell> animal type </TableCell>
+    //                 <TableCell> condition </TableCell>
+    //                 <TableCell> request status </TableCell>
+    //                 <TableCell>  </TableCell>
+    //                 <TableCell>  </TableCell>
+    //             </TableRow>
+    //         </TableHead>
+    //         <TableBody>
+    //             {requested.map((row) => (
+    //                 <TableRow key={row.id}>
+    //                     <TableCell component="th" scope="row">
+    //                         {row.id}
+    //                     </TableCell>
+    //                     <TableCell align="right">{row.requested}</TableCell>
+    //                     <TableCell align="right">{row.requester}</TableCell>
+    //                     <TableCell align="right">{row.animal_name}</TableCell>
+    //                     <TableCell align="right">{row.animal_type}</TableCell>
+    //                     <TableCell align="right">{row.condition}</TableCell>
+    //                     <TableCell align="right">{row.request_status}</TableCell>
+    //                     <TableCell align="right">{row.request_status === "a" ?
+    //                         <Button color="primary" onClick={()=>updateTreatment("y",row.id)}>Accept</Button> : ""}
+    //                     </TableCell>
 
-                        <TableCell align="right">{row.request_status === "a" ?
-                            <Button color="secondary" onClick={()=>updateTreatment("n",row.id)}>Decline</Button> : ""}
-                        </TableCell>
-                    </TableRow> 
-                ))}
-            </TableBody>
-        </Table>
-    </TableContainer> : <></>   
+    //                     <TableCell align="right">{row.request_status === "a" ?
+    //                         <Button color="secondary" onClick={()=>updateTreatment("n",row.id)}>Decline</Button> : ""}
+    //                     </TableCell>
+    //                 </TableRow> 
+    //             ))}
+    //         </TableBody>
+    //     </Table>
+    // </TableContainer> : <></>   
 
     return (
         <Grid container spacing={3}>
