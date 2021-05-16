@@ -1,7 +1,8 @@
 import { AppBar, Toolbar, Typography, Button, Dialog, DialogTitle, TextField, DialogActions, Snackbar, IconButton, Menu, MenuItem } from "@material-ui/core";
 import {Link, Switch, Route, BrowserRouter} from "react-router-dom"
 import { Welcome } from './components/pages/welcome';
-import { Animals } from './components/pages/Animals';
+import { Animals, AnimalInfo } from './components/pages/Animals';
+
 import { Register } from './components/pages/Register';
 import { Events } from './components/pages/Event';
 import { BrowseGroupTours, GtInfo } from './components/pages/BrowseGT';
@@ -138,11 +139,23 @@ function App() {
               <Route path="/animals">
                 <Animals/>
               </Route>
+              <Route path="/animal_info">
+                <AnimalInfo/> 
+              </Route>
               <Route path="/profile">
                 <Profile success={setSuccess} fail={setFail} user={user}/>
               </Route>
               <Route path="/events">
                 <Events/>
+              </Route>
+              <Route path="/gt/:name">
+                <GtInfo/>
+              </Route>
+              <Route path="/ev/:name">
+                <EvInfo success={setSuccess} fail={setFail} user={user}/>
+              </Route>
+              <Route path="/co/:name">
+                <CoInfo success={setSuccess} fail={setFail} user={user}/>
               </Route>
               <Route path="/gt">
                 <BrowseGroupTours/>
@@ -152,15 +165,6 @@ function App() {
               </Route>
               <Route path="/co">
                 <BrowseConsOrg/>
-              </Route>
-              <Route path="/gt_info">
-                <GtInfo/>
-              </Route>
-              <Route path="/ev_info">
-                <EvInfo/>
-              </Route>
-              <Route path="/co_info">
-                <CoInfo/>
               </Route>
               <Route exact path="/shops/:name">
                 <Gifts success={setSuccess} fail={setFail} user={user}/>

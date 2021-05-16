@@ -1,5 +1,5 @@
 var express = require('express');
-const { login, visitor, gsm } = require('../database/get');
+const { login, visitor, gsm, vet } = require('../database/get');
 const { insertVisitor, addMoney } = require('../database/insert');
 var router = express.Router();
 
@@ -18,6 +18,10 @@ router.post('/visitor', async function(req, res, next) {
 
 router.post('/gsm', async function(req, res, next) {
   gsm(req.body.username).then(v => res.send(v))
+});
+
+router.post('/vet', async function(req, res, next) {
+  vet(req.body.username).then(v => res.send(v))
 });
 
 router.post('/money', async function(req, res, next) {

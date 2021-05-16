@@ -9,6 +9,8 @@ const login = async (username, password) => {
                     (select username,'visitor' as typ from visitor) 
                     union 
                     (select username,'giftshopManager' as typ from giftshopmanager )
+                    union
+                    (select username,'vet' as typ from veterinarian )
                 ) as utyp 
                 natural join zooUser
                 WHERE username = '${username}' AND password = '${password}'
@@ -59,10 +61,41 @@ const allGroupTours = async () => {
     const client = getClient();
 
     return client.query(qry).then((res,err) => {
-        if(err) return {exists: false, shops: null, message: "Uh oh there is a server error"}
-        else return {exists: true, shops: res.rows, message: "All is fine"};
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows, message: "All is fine"};
     })
 }
+
+const allEducationalEvents = async () => {
+    const qry = `select * from Educational_Event`
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => {
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows, message: "All is fine"};
+    })
+}
+
+const allConservationOrganizations = async () => {
+    const qry = `select * from Conservation_Organization`
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => {
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows, message: "All is fine"};
+    })
+}
+
+const groupTour = async (ename) => {
+    const qry = `select * from  Group_Tour natural join Event where event_name = '${ename}'`
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => {
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows, message: "All is fine"};
+    })
+}
+
 const visitor = async (vuname) => {
     const qry = `select * from visitor natural join zoouser where username = '${vuname}' LIMIT 1`
 
@@ -120,15 +153,64 @@ const allAnimals = async() => {
     })
 }
 
+const invited = async(v)=>{
+    const qry = `select * from invite where invitee='${v.username}'` 
 
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => { 
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows, message: "All is fine"};
+    })
+}
+
+const requested = async(v)=>{
+    const qry = `select * from treatment where requested='${v.username}'` 
+
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => { 
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows, message: "All is fine"};
+    })
+}
+
+const keeper = async(uname) => {
+    const qry = `select * from keeper natural join employee natural join zoouser where username = '${uname}' LIMIT 1`
+
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => { 
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows[0], message: "All is fine"};
+    })
+}
+
+const vet = async(uname) => {
+    const qry = `select * from veterinarian natural join employee natural join zoouser where username = '${uname}' LIMIT 1`
+
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => { 
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows[0], message: "All is fine"};
+    })
+}
+
+exports.vet = vet;
+exports.keeper = keeper;
+exports.invited = invited;
+exports.requested = requested;
 exports.giftsSearch = giftsSearch;
 exports.gsm = gsm;
 exports.visitor = visitor;
 exports.login = login;
 exports.allShops = allShops;
 exports.gifts = gifts;
-exports.allGroupTours;
 exports.profit = profit;
 exports.soldStuff = soldStuff;
 exports.allAnimals = allAnimals;
 exports.allGroupTours = allGroupTours;
+exports.allEducationalEvents = allEducationalEvents;
+exports.allConservationOrganizations = allConservationOrganizations;
+exports.groupTour = groupTour;

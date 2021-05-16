@@ -8,6 +8,7 @@ exports.createTables =  function createTables(){
                   DROP TABLE attends;
                   DROP TABLE joins;
                   DROP TABLE invite;
+                  DROP TABLE treatment;
                   DROP TABLE g_has_c;
                   DROP TABLE g_has_f;
                   DROP TABLE respond_to;
@@ -25,6 +26,7 @@ exports.createTables =  function createTables(){
                   DROP TABLE Group_Tour;
                   DROP TABLE Event;
                   DROP TABLE Coordinator;
+                  DROP TABLE Keeper;
                   DROP TABLE employee;
                   DROP TABLE visitor;
                   DROP TABLE zooUser;
@@ -123,7 +125,7 @@ exports.createTables =  function createTables(){
     // EVENT RELATED ENTITY TABLES
     qry +=`CREATE TABLE Event
                     (event_name VARCHAR(40),
-                    event_date DATE,
+                    event_date date,
                     explanation text,
                     length decimal,
                     coord_un VARCHAR(20),
@@ -213,17 +215,34 @@ exports.createTables =  function createTables(){
      
 
     qry +=`CREATE TABLE  invite
-                    ( event_name varchar(40),
+                    ( id uuid primary key,
+                    event_name varchar(40),
                     event_date date,
                     inviter varchar(20), 
                     invitee varchar(20), 
                     request_status char(1),
-                    PRIMARY KEY (event_name, event_date, inviter, invitee),
                     FOREIGN KEY (event_name, event_date) REFERENCES Educational_Event(event_name, event_date),
                     FOREIGN KEY (inviter) REFERENCES Coordinator(username),
                     FOREIGN KEY (invitee) REFERENCES Veterinarian(username));` 
-         
-     
+              
+    qry += `CREATE TABLE Keeper
+            (username varchar(20) PRIMARY KEY,
+            FOREIGN KEY (username) REFERENCES employee);
+            `
+
+    qry += `CREATE TABLE Treatment
+            ( id uuid PRIMARY KEY,
+            requested varchar(20), 
+            requester varchar(20), 
+            animal_name char(40), 
+            animal_type char(120),
+            request_status char(1),
+            condition text,
+            FOREIGN KEY (requested) REFERENCES Veterinarian(username),
+            FOREIGN KEY (requester) REFERENCES Keeper(username),
+            FOREIGN KEY (animal_name, animal_type) REFERENCES Animals(name,type));
+    `
+
 
     qry +=`CREATE TABLE  g_has_c
                     ( comment_id uuid PRIMARY KEY,  
@@ -288,7 +307,7 @@ exports.createTables =  function createTables(){
                 buy_date date,
                 FOREIGN KEY (username) REFERENCES Visitor(username),
                 FOREIGN KEY (product_code) REFERENCES Gift(product_code),
-                PRIMARY KEY (product_code) )
+                PRIMARY KEY (product_code) );
             `
 
     console.log(qry);

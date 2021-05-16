@@ -1,5 +1,17 @@
 const { uuid1, uuid2, uuid3, uuid4, uuid5, uuid6, uuid7, uuid8, uuid9, uuid10 } = require("./uuid");
-const { insertCoordinators, insertGroupTour, insertGiftshop, insertGiftshopManager, insertGift, insertAnimal, insertFood, insertVeterinarian } = require("./insert")
+const { insertConservationOrganization,
+     insertEducationalEvent, 
+     insertCoordinators, 
+     insertGroupTour, 
+     insertGiftshop, 
+     insertGiftshopManager, 
+     insertGift, 
+     insertAnimal, 
+     insertFood, 
+     insertVeterinarian, 
+     insertInvite,
+     insertKeeper,
+     insertTreatment } = require("./insert")
 
 
 const date = "2000-05-17T08:04:00.000Z";
@@ -269,10 +281,70 @@ const populateGroupTours = () => {
     })
 }
 
+const populateEducationalEvents = () => {
+    insertEducationalEvent({
+        event_name:"Seminar on Fish",
+        event_date: date,
+        topic: "fish life",
+        explanation: "we will be get educated on fish and the meaning of life",
+        length: 2,
+        coord_un: "coord1"
+    })
+    insertEducationalEvent({
+        event_name:"Meaning of Life",
+        event_date: date,
+        topic: "what is the meaning of life?",
+        explanation: "this educational event will be very sad",
+        length: 3,
+        coord_un: "coord2"
+    })
+    insertEducationalEvent({
+        event_name:"Understanding Ocean Ecosystem",
+        event_date: date,
+        topic: "what is going on in the ocean?",
+        explanation: "ever wondered what is going on in the ocean? me neither. but education is important.",
+        length: 5,
+        coord_un: "coord1"
+    })
+}
+
+const populateConservationOrganizations = () => {
+    insertConservationOrganization({
+        event_name:"World Wide Fund for Nature",
+        event_date: date,
+        purpose: "meeting for WWF",
+        target_money: 400000,
+        target_place: "seminar room I",
+        explanation: "The mission of WWF is to stop the degradation of the planet’s natural environment and to build a future in which people live in harmony with nature, by: conserving the world’s biological diversity ensuring that the use of renewable natural resources is sustainable promoting the reduction of pollution and wasteful consumption.",
+        length: 2,
+        coord_un: "coord1"
+    })
+    insertConservationOrganization({
+        event_name:"Society for the Protection of Birds",
+        event_date: date,
+        purpose: "lets unit for protection of birdz!",
+        target_money: 9000000,
+        target_place:"seminar room II",
+        explanation: "The RSPB is the UKs largest nature conservation organisation and charity, inspiring everyone to give nature a home. Together with our partners, they protect threatened birds and wildlife so that towns, coast and countryside will once again teem with life.",
+        length: 2,
+        coord_un: "coord2"
+    })
+    insertConservationOrganization({
+        event_name:"The Nature Conservancy",
+        event_date: date,
+        purpose: "we must conserve nature ASAP!",
+        target_money: 230000,
+        target_place: "seminar room VI",
+        explanation: "The mission of The Nature Conservancy as a conservation organisation is to conserve the lands and waters on which all life depends. Our vision is a world where the diversity of life thrives, and people act to conserve nature for its own sake and its ability to fulfill our needs and enrich our lives. ",
+        length: 7,
+        coord_un: "coord1"
+    })
+}
+
 const populateCoordinators = () => {
     insertCoordinators({
         username: "coord1",
-        password: "12345",
+        password: "123",
         name: "Joshua",
         surname: "McBottoms",
         phone: "2132312312",
@@ -284,7 +356,7 @@ const populateCoordinators = () => {
     })
     insertCoordinators({
         username: "coord2",
-        password: "6789",
+        password: "123",
         name: "Teressa",
         surname: "Bobba",
         phone: "345435342",
@@ -296,10 +368,10 @@ const populateCoordinators = () => {
     })
 }
 
-const populateVeterinarian = () => {
+const populateVeterinarianKeeper = () => {
     insertVeterinarian({
         username: "vetty",
-        password: "6789",
+        password: "123",
         name: "Vetty",
         surname: "Bobba",
         phone: "345435342",
@@ -309,6 +381,43 @@ const populateVeterinarian = () => {
         job_title: "Senior Vetrinarian",
         degree: "Vet PhD"
     })
+
+    insertKeeper({
+        username: "keepy",
+        password: "123",
+        name: "Ketty",
+        surname: "Bobba",
+        phone: "34435342",
+        email: "bombbaaar@gmail.com",
+        birthday: date,
+        salary: 7650,
+        job_title: "Senior Vetrinarian",
+    })
+}
+
+const populateTreatmentInvite = () => {
+    insertTreatment({
+        requested: "vetty",
+        requester: "keepy",
+        animal_name: "Pinchy",
+        animal_type: "crab",
+        condition: "Skin rash"
+    })
+
+    insertTreatment({
+        requested: "vetty",
+        requester: "keepy",
+        animal_name: "Kicky",
+        animal_type: "panda",
+        condition: "cannot kick"
+    })
+
+    insertInvite({
+        ename: "Seminar on Fish",
+        edate: date,
+        inviter: "coord1",
+        invitee: "vetty"
+    })
 }
 
 const populate = ()=>{
@@ -317,7 +426,10 @@ const populate = ()=>{
     populategiftShops()
     populateCoordinators()
     populateGroupTours()
-    populateVeterinarian()
+    populateVeterinarianKeeper()
+    populateEducationalEvents()
+    populateConservationOrganizations()
+    populateTreatmentInvite()
 }
 
 exports.populate = populate;

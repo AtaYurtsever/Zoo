@@ -105,6 +105,26 @@ const insertGiftshopManager = (v) => {
     })
 }
 
+const insertKeeper = (v) => {
+    var bday = v.birthday.substr(0,10);
+    const insertVisitorText = `
+        INSERT INTO zooUser
+                (username, password, name, surname,
+                sex, phone, email,birthday) VALUES 
+                ('${v.username}', '${v.password}', 
+                '${v.name}', '${v.surname}', 'm', 
+                '${v.phone}', '${v.email}' ,'${bday}');
+        INSERT INTO employee(username, salary, job_title) VALUES
+                    ('${v.username}', ${v.salary}, '${v.job_title}');
+        INSERT INTO keeper(username) VALUES
+                    ('${v.username}')
+    `
+    const client = getClient();
+    client.query(insertVisitorText, (err,res)=>{
+        if(err!==null) console.log(err,insertVisitorText);
+    })
+}
+
 const insertGift = (v) => {
     const qry = `INSERT INTO Gift
                 (product_code, price, name, animal_name, animal_type, shop, discount)
@@ -117,15 +137,87 @@ const insertGift = (v) => {
     })
 }
 
+const insertInvite = (v) => {
+    const qry = `INSERT INTO invite
+                    (id,event_name, event_date, inviter, invitee, request_status) VALUES 
+                    ('${uuidV4()}','${v.ename}', '${v.edate}', '${v.inviter}', '${v.invitee}', 'a');
+                `
+    const client = getClient();
+    client.query(qry, (err,res)=>{
+        if(err!==null) console.log(err,qry);
+    }) 
+}
+
+const updateInvite = (v) => {
+    const qry = `update invite set request_status = '${v.status}' where id='${v.id}'`
+    const client = getClient();
+    client.query(qry, (err,res)=>{
+         console.log(err,res,qry);
+    }) 
+}
+
+const insertTreatment = (v) => {
+    const qry = `INSERT INTO treatment
+                    (id, requested, requester, animal_name, animal_type, request_status, condition) VALUES 
+                    ('${uuidv4()}','${v.requested}', '${v.requester}', 
+                    '${v.animal_name}', '${v.animal_type}', 'a', '${v.condition}');
+                `
+    const client = getClient();
+    client.query(qry, (err,res)=>{
+        if(err!==null) console.log(err,qry);
+    }) 
+}
+
+
+const updateTreatment = (v) => {
+    const qry = `update treatment set request_status = '${v.status}' where id = '${v.id}'`
+
+    const client = getClient();
+    client.query(qry, (err,res)=>{
+        if(err!==null) console.log(err,qry);
+    }) 
+}
+
 // EVENT RELATED
 const insertGroupTour = (v) => {
     const qry = `INSERT INTO Event
                     (event_name, event_date, explanation, length, coord_un) VALUES 
                     ('${v.event_name}', '${v.event_date}', 
-                    '${v.explanation}', ${v.length}, '${v.coord_un}');
+                    '${v.explanation}', '${v.length}', '${v.coord_un}');
                 INSERT INTO Group_Tour
                     (event_name, event_date, capacity, price)
-                    VALUES ('${v.event_name}', '${v.event_date}', ${v.capacity}, ${v.price});
+                    VALUES ('${v.event_name}', '${v.event_date}', '${v.capacity}', '${v.price}');
+                `
+    const client = getClient();
+    client.query(qry, (err,res)=>{
+        if(err!==null) console.log(err,qry);
+    }) 
+}
+
+
+const insertEducationalEvent = (v) => {
+    const qry = `INSERT INTO Event
+                    (event_name, event_date, explanation, length, coord_un) VALUES 
+                    ('${v.event_name}', '${v.event_date}', 
+                    '${v.explanation}', '${v.length}', '${v.coord_un}');
+                INSERT INTO Educational_Event
+                    (event_name, event_date, topic)
+                    VALUES ('${v.event_name}', '${v.event_date}', '${v.topic}');
+                `
+    const client = getClient();
+    client.query(qry, (err,res)=>{
+        if(err!==null) console.log(err,qry);
+    })
+        
+}
+const insertConservationOrganization = (v) => {
+    const qry = `INSERT INTO Event
+                    (event_name, event_date, explanation, length, coord_un) VALUES 
+                    ('${v.event_name}', '${v.event_date}', 
+                    '${v.explanation}', '${v.length}', '${v.coord_un}');
+                INSERT INTO Conservation_Organization
+                    (event_name, event_date, purpose, target_money, target_place)
+                    VALUES ('${v.event_name}', '${v.event_date}', '${v.purpose}', ${v.target_money}, '${v.target_place}');
                 `
     const client = getClient();
     client.query(qry, (err,res)=>{
@@ -184,7 +276,7 @@ const insertVeterinarian = (v) => {
                 '${v.phone}', '${v.email}' ,'${bday}');
         INSERT INTO employee(username, salary, job_title) VALUES
                     ('${v.username}', ${v.salary}, '${v.job_title}');
-        INSERT INTO veterinarian(username, shop_name) VALUES
+        INSERT INTO veterinarian(username, degree) VALUES
                     ('${v.username}', '${v.degree}')
     `
     const client = getClient();
@@ -199,10 +291,17 @@ exports.insertVisitor = insertVisitor;
 exports.insertFood = insertFood;
 exports.insertAnimal = insertAnimal;
 exports.insertGift = insertGift;
+exports.insertTreatment = insertTreatment;
+exports.updateTreatment = updateTreatment;
+exports.insertInvite = insertInvite;
+exports.updateInvite = updateInvite;
 exports.addMoney = addMoney;
 exports.insertVeterinarian = insertVeterinarian;
-
+exports.insertKeeper = insertKeeper;
+exports.updateTreatment = updateTreatment;
 exports.insertGroupTour = insertGroupTour;
+exports.insertEducationalEvent = insertEducationalEvent;
+exports.insertConservationOrganization = insertConservationOrganization;
 exports.insertCoordinators = insertCoordinators;
 exports.buy = buy;
 
