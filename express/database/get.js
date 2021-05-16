@@ -92,7 +92,27 @@ const groupTour = async (ename) => {
 
     return client.query(qry).then((res,err) => {
         if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
-        else return {exists: true, value: res.rows, message: "All is fine"};
+        else return {exists: true, value: res.rows[0], message: "All is fine"};
+    })
+}
+
+const conservationOrganization = async (ename) => {
+    const qry = `select * from Conservation_Organization natural join Event where event_name = '${ename}'`
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => {
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows[0], message: "All is fine"};
+    })
+}
+
+const educationalEvent = async (ename) => {
+    const qry = `select * from Educational_Event natural join Event where event_name = '${ename}'`
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => {
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows[0], message: "All is fine"};
     })
 }
 
@@ -214,3 +234,5 @@ exports.allGroupTours = allGroupTours;
 exports.allEducationalEvents = allEducationalEvents;
 exports.allConservationOrganizations = allConservationOrganizations;
 exports.groupTour = groupTour;
+exports.conservationOrganization = conservationOrganization;
+exports.educationalEvent = educationalEvent;

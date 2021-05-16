@@ -152,10 +152,10 @@ function App() {
                 <GtInfo/>
               </Route>
               <Route path="/ev/:name">
-                <EvInfo success={setSuccess} fail={setFail} user={user}/>
+                <EvInfo/>
               </Route>
               <Route path="/co/:name">
-                <CoInfo success={setSuccess} fail={setFail} user={user}/>
+                <CoInfo/>
               </Route>
               <Route path="/gt">
                 <BrowseGroupTours/>

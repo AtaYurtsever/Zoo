@@ -73,18 +73,12 @@ const useStyles = makeStyles((theme)=>({
 }))
 
 
-export function GtInfo(){
+export function GtInfo(props){
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
-    const [gt, setGroupTours] = useState([])
+    const [gt, setGroupTours] = useState(null)
     const {name} = useParams()
   
-    /*useEffect(()=>{
-        axios("https://jsonplaceholder.typicode.com/posts")
-        .then(data => data.data)
-        .then(data => setGroupTours(data))
-    },[])
-    */
     const handleExpandClick = () => {
       setExpanded(!expanded);
     };
@@ -98,25 +92,26 @@ export function GtInfo(){
       })
     }
     useEffect(onLoad,[])
-
+    console.log(gt)
+    if( gt)
     return <>
       <Card className={classes.root}>
         <CardHeader
           title={name}
-          subheader= {  gt.time}
+          subheader= {`${gt.event_date}`}
         />
         <img src={"/gt_logo.jpg"}  width="600" height="400" align="center"/>
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
-            Length: + {gt.length}
+            Length: {gt.length}
           </Typography>
 
           <Typography variant="body2" color="textSecondary" component="p">
-            Capacity: + {gt.capacity} 
+            Capacity: {gt.capacity} 
           </Typography>
 
           <Typography variant="body2" color="textSecondary" component="p">
-            Price: + {gt.price}
+            Price: {gt.price}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
@@ -168,6 +163,7 @@ export function GtInfo(){
         </Collapse>
       </Card>
       </>
+      else return <></>
 }
 
 export function BrowseGroupTours(props){
