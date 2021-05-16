@@ -2,6 +2,7 @@ import { GridList, GridListTile, GridListTileBar, IconButton, makeStyles } from 
 import { Info } from "@material-ui/icons"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(()=>({
     gridList: {
@@ -10,21 +11,25 @@ const useStyles = makeStyles(()=>({
   },
 }))
 
-export function Animals(){
+export function Animals(props){
     const [animals, setAnimals] = useState([])
 
     useEffect(()=>{
-        axios("https://jsonplaceholder.typicode.com/posts")
+        axios("http://localhost:3003/animalz/animals")
         .then(data => data.data)
-        .then(data => setAnimals(data))
+        .then(data => {
+            if(!data.exists) props.setFail(data.message) 
+            else setAnimals(data.animals)
+        })
     },[])
 
     return <GridList cellHeight={350} >
         {
-            animals.map(animal => (
+            animals.map((animal,index) => (
                 <GridListTile key={animal.title}>
-                    <img src={"https://cataas.com/cat"} />
+                    <img src={`/animals/p${index%2}.jpg`} />
                     <GridListTileBar
+                        maring="dense"
                         title={animal.title}
                         subtitle={animal.body.substr(0,10) + "..."}
                             actionIcon={
