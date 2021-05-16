@@ -74,6 +74,16 @@ const allConservationOrganizations = async () => {
     })
 }
 
+const groupTour = async (ename) => {
+    const qry = `select * from  Group_Tour natural join Event where event_name = '${ename}'`
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => {
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows, message: "All is fine"};
+    })
+}
+
 const visitor = async (vuname) => {
     const qry = `select * from visitor natural join zoouser where username = '${vuname}' LIMIT 1`
 
@@ -142,3 +152,4 @@ exports.allAnimals = allAnimals;
 exports.allGroupTours = allGroupTours;
 exports.allEducationalEvents = allEducationalEvents;
 exports.allConservationOrganizations = allConservationOrganizations;
+exports.groupTour = groupTour;

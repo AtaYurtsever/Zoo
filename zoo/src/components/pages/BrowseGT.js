@@ -77,35 +77,46 @@ export function GtInfo(){
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
     const [gt, setGroupTours] = useState([])
+    const {name} = useParams()
   
-    useEffect(()=>{
+    /*useEffect(()=>{
         axios("https://jsonplaceholder.typicode.com/posts")
         .then(data => data.data)
         .then(data => setGroupTours(data))
     },[])
-
+    */
     const handleExpandClick = () => {
       setExpanded(!expanded);
     };
-  
+
+    const onLoad = ()=>{
+      axios(`http://localhost:3003/gt/${name}`)
+      .then(data => data.data)
+      .then(data => {
+          if(!data.exists) props.fail(data.message)
+          else setGroupTours(data.value)
+      })
+    }
+    useEffect(onLoad,[])
+
     return (
       <Card className={classes.root}>
         <CardHeader
-          title="{gt.event_name}"
-          subheader="{{gt.event_date} + {gt.time}}"
+          title={name}
+          subheader= "{{gt.event_date} + {gt.time}"
         />
         <img src={"/gt_logo.jpg"}  width="600" height="400" align="center"/>
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
-            Length: +"{gt.length}"
+            Length: + {gt.length}
           </Typography>
 
           <Typography variant="body2" color="textSecondary" component="p">
-            Capacity: +"{gt.capacity}"
+            Capacity: + {gt.capacity} 
           </Typography>
 
           <Typography variant="body2" color="textSecondary" component="p">
-            Price: +"{gt.price}"
+            Price: + {gt.price}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
@@ -151,7 +162,7 @@ export function GtInfo(){
           <CardContent>
             <Typography paragraph>Explanation about the Tour:</Typography>
             <Typography paragraph>
-                "{gt.explanation}"
+                {gt.explanation}
             </Typography>
           </CardContent>
         </Collapse>
