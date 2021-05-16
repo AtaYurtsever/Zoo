@@ -6,6 +6,8 @@ exports.createTables =  function createTables(){
     var qry = ''
     qry +=`       DROP TABLE buys;
                   DROP TABLE attends;
+                  DROP Table assigns;
+                  DROP TABLE regularize;
                   DROP TABLE joins;
                   DROP TABLE invite;
                   DROP TABLE treatment;
@@ -31,6 +33,7 @@ exports.createTables =  function createTables(){
                   DROP TABLE visitor;
                   DROP TABLE zooUser;
                   DROP TABLE Food;
+                  DROP TABLE Cage;
                  ` 
     
      
@@ -81,14 +84,57 @@ exports.createTables =  function createTables(){
     // qry +=`CREATE TABLE assigns
     //                 ()
          
+    qry +=`CREATE TABLE Veterinarian
+            (username varchar(20) PRIMARY KEY, 
+            degree text,
+            FOREIGN KEY (username) REFERENCES employee(username));` 
+         
      
+    
+    qry +=`CREATE TABLE Coordinator
+                    (username varchar(20) PRIMARY KEY, 
+                    degree text,
+                    FOREIGN KEY (username) REFERENCES employee(username));` 
+         
+             
+    qry += `CREATE TABLE Keeper
+            (username varchar(20) PRIMARY KEY,
+            FOREIGN KEY (username) REFERENCES employee);
+            `
 
     qry +=`CREATE TABLE Food
                     (food_id uuid PRIMARY KEY,
                     stock decimal,
                     name char(120));` 
          
-     
+    qry += `CREATE TABLE Cage
+            ( cage_id uuid PRIMARY KEY,
+            address text);
+            `
+
+    qry += `CREATE TABLE assigns
+            ( k_username varchar(20), 
+            cage_id uuid,
+            c_username  varchar(20),
+            start_date date,
+            end_date date,
+            FOREIGN KEY (cage_id) REFERENCES Cage,
+            FOREIGN KEY (k_username) REFERENCES Keeper(username),
+            FOREIGN KEY (c_username) REFERENCES Coordinator(username),
+            PRIMARY KEY( cage_id));
+            `
+
+    qry += `CREATE TABLE regularize
+            ( cage_id uuid,
+            food_id uuid,
+            username  varchar(20),
+            portion int,
+            frequency int,
+            FOREIGN KEY (cage_id ) REFERENCES Cage,
+            FOREIGN KEY (food_id ) REFERENCES Food,
+            FOREIGN KEY (username ) REFERENCES Keeper,
+            PRIMARY KEY(cage_id, food_id));
+            `
 
                     //TODO: CAGE ID
     qry +=`CREATE TABLE Animals
@@ -102,23 +148,12 @@ exports.createTables =  function createTables(){
                     food_id uuid,
                     cage_id uuid,
                     PRIMARY KEY(name, type),
+                    FOREIGN KEY(cage_id) REFERENCES Cage,
                     FOREIGN KEY(food_id) REFERENCES Food);` 
          
      
 
-    qry +=`CREATE TABLE Veterinarian
-                    (username varchar(20) PRIMARY KEY, 
-                    degree text,
-                    FOREIGN KEY (username) REFERENCES employee(username));` 
-         
-     
-    
-    qry +=`CREATE TABLE Coordinator
-                    (username varchar(20) PRIMARY KEY, 
-                    degree text,
-                    FOREIGN KEY (username) REFERENCES employee(username));` 
-         
-     
+   
 
     // EVENT RELATED ENTITY TABLES
     qry +=`CREATE TABLE Event
@@ -223,11 +258,7 @@ exports.createTables =  function createTables(){
                     FOREIGN KEY (event_name, event_date) REFERENCES Educational_Event(event_name, event_date),
                     FOREIGN KEY (inviter) REFERENCES Coordinator(username),
                     FOREIGN KEY (invitee) REFERENCES Veterinarian(username));` 
-              
-    qry += `CREATE TABLE Keeper
-            (username varchar(20) PRIMARY KEY,
-            FOREIGN KEY (username) REFERENCES employee);
-            `
+ 
 
     qry += `CREATE TABLE Treatment
             ( id uuid PRIMARY KEY,
