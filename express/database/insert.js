@@ -133,6 +133,36 @@ const insertGroupTour = (v) => {
     })
         
 }
+const insertEducationalEvent = (v) => {
+    const qry = `INSERT INTO Event
+                    (event_name, event_date, explanation, length, coord_un) VALUES 
+                    ('${v.event_name}', '${v.event_date}', 
+                    '${v.explanation}', '${v.length}', '${v.coord_un}');
+                INSERT INTO Educational_Event
+                    (event_name, event_date, topic)
+                    VALUES ('${v.event_name}', '${v.event_date}', '${v.topic}');
+                `
+    const client = getClient();
+    client.query(qry, (err,res)=>{
+        if(err!==null) console.log(err,qry);
+    })
+        
+}
+const insertConservationOrganization = (v) => {
+    const qry = `INSERT INTO Event
+                    (event_name, event_date, explanation, length, coord_un) VALUES 
+                    ('${v.event_name}', '${v.event_date}', 
+                    '${v.explanation}', '${v.length}', '${v.coord_un}');
+                INSERT INTO Conservation_Organization
+                    (event_name, event_date, purpose, target_money, target_place)
+                    VALUES ('${v.event_name}', '${v.event_date}', '${v.purpose}', ${v.target_money}, '${v.target_place}');
+                `
+    const client = getClient();
+    client.query(qry, (err,res)=>{
+        if(err!==null) console.log(err,qry);
+    })
+        
+}
 const buy = async (v) => {
 
     //select username from gift g, visitor v where g.product_code = '40030309-bf33-4af3-986d-4553975919df' and v.username='aaa' and v.total_money >= g.price;
@@ -182,6 +212,8 @@ exports.insertGift = insertGift;
 exports.addMoney = addMoney;
 
 exports.insertGroupTour = insertGroupTour;
+exports.insertEducationalEvent = insertEducationalEvent;
+exports.insertConservationOrganization = insertConservationOrganization;
 exports.insertCoordinators = insertCoordinators;
 exports.buy = buy;
 
