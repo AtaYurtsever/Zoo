@@ -2,8 +2,10 @@ const { getClient } =  require('./db');
 
 exports.createTables =  function createTables(){
     const client = getClient()
+
     var qry = ''
-    qry +=`       DROP TABLE attends;
+    qry +=`       DROP TABLE buys;
+                  DROP TABLE attends;
                   DROP TABLE joins;
                   DROP TABLE invite;
                   DROP TABLE g_has_c;
@@ -27,8 +29,8 @@ exports.createTables =  function createTables(){
                   DROP TABLE visitor;
                   DROP TABLE zooUser;
                   DROP TABLE Food;
-                  ` 
-         
+                 ` 
+    
      
 
     qry +=`CREATE TABLE zooUser
@@ -194,7 +196,7 @@ exports.createTables =  function createTables(){
                     ( event_name varchar(40),
                     username varchar(20),
                     event_date date,
-                    FOREIGN KEY (event_name, event_date) REFERENCES Educational_event(event_name, event_date),
+                    FOREIGN KEY (event_name, event_date) REFERENCES Educational_Event(event_name, event_date),
                     FOREIGN KEY (username) REFERENCES Visitor(username),
                     PRIMARY KEY (username, event_name, event_date));` 
          
@@ -279,6 +281,15 @@ exports.createTables =  function createTables(){
                     FOREIGN KEY (animal_name, animal_type) REFERENCES Animals(name, type),
                     FOREIGN KEY (shop) REFERENCES Giftshop(name) );
                     ` 
+
+    qry += `CREATE TABLE Buys
+                ( username varchar(20),
+                product_code uuid,
+                buy_date date,
+                FOREIGN KEY (username) REFERENCES Visitor(username),
+                FOREIGN KEY (product_code) REFERENCES Gift(product_code),
+                PRIMARY KEY (product_code) )
+            `
 
     console.log(qry);
     client.query(qry,  (err,res) => {console.log(err,res)})    

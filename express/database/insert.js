@@ -34,19 +34,40 @@ const { v4:uuidV4 } = require("uuid")
 
 const insertVisitor = (v) => {
     var bday = v.birthday.substr(0,10);
-    const insertVisitorText = `
+    const qry = `
         INSERT INTO zooUser
                 (username, password, name, surname,
                 sex, phone, email,birthday) VALUES 
                 ('${v.username}', '${v.password}', 
                 '${v.name}', '${v.surname}', 'm', 
                 '${v.phone}', '${v.email}' ,'${bday}');
-        INSERT INTO visitor(username, total_money) VALUES
-                    ('${v.username}', 0)
+        INSERT INTO Coordinator(username, degree) VALUES
+                    ('${v.username}', '${v.degree}')
     `
     const client = getClient();
-    client.query(insertVisitorText, (err,res)=>{
-        if(err!==null) console.log(err,insertVisitorText);
+    client.query(qry, (err,res)=>{
+        if(err!==null) console.log(err,qry);
+        
+    })
+}
+
+const insertCoordinators = (v) => {
+    var bday = v.birthday.substr(0,10);
+    const qry = `
+        INSERT INTO zooUser
+                (username, password, name, surname,
+                sex, phone, email,birthday) VALUES 
+                ('${v.username}', '${v.password}', 
+                '${v.name}', '${v.surname}', 'm', 
+                '${v.phone}', '${v.email}' ,'${bday}');
+        INSERT INTO employee(username, salary, job_title) VALUES
+                ('${v.username}', ${v.salary}, '${v.job_title}');
+        INSERT INTO Coordinator(username, degree) VALUES
+                    ('${v.username}', '${v.degree}')
+    `
+    const client = getClient();
+    client.query(qry, (err,res)=>{
+        if(err!==null) console.log(err,qry);
         
     })
 }
@@ -94,14 +115,60 @@ const insertGift = (v) => {
     client.query(qry, (err,res)=>{
         if(err!==null) console.log(err,qry);
     })
+}
+
+// EVENT RELATED
+const insertGroupTour = (v) => {
+    const qry = `INSERT INTO Event
+                    (event_name, event_date, explanation, length, coord_un) VALUES 
+                    ('${v.event_name}', '${v.event_date}', 
+                    '${v.explanation}', ${v.length}, '${v.coord_un}');
+                INSERT INTO Group_Tour
+                    (event_name, event_date, capacity, price)
+                    VALUES ('${v.event_name}', '${v.event_date}', ${v.capacity}, ${v.price});
+                `
+    const client = getClient();
+    client.query(qry, (err,res)=>{
+        if(err!==null) console.log(err,qry);
+    })
         
 }
+const buy = async (v) => {
+
+    //select username from gift g, visitor v where g.product_code = '40030309-bf33-4af3-986d-4553975919df' and v.username='aaa' and v.total_money >= g.price;
+    const isAbleTo = `select username from gift g, visitor v 
+            where g.product_code = '${v.product_code}' and v.username='${v.username}' 
+            and v.total_money >= g.price LIMIT 1`
+
+    const buy = `update visitor set 
+                total_money = total_money - 
+                    (select price from gift 
+                    where product_code='${v.product_code}') 
+                    WHERE username='${v.username}'; 
+                INSERT INTO buys(username, product_code, buy_date) 
+                VALUES('${v.username}', '${v.product_code}', NOW());`
+
+    const client = getClient();
+    return client.query(isAbleTo).then((res,err)=>{
+        if(err) return {exists: false,  message: "Uh oh there is a server error"}
+        else {
+            if(res.rows.length === 0) return {exists: false,  message: "You do not have enough money"}
+            else return client.query(buy).then((res,err)=>{
+                if(err) return {exists: false,  message: "Uh oh there is a server error"}
+                else return {exists: true,  message: "Bought item, Have a nice day!"}
+            })
+        }
+    })
+} 
 
 exports.insertGiftshop = insertGiftshop;
 exports.insertGiftshopManager = insertGiftshopManager;
 exports.insertVisitor = insertVisitor;
-
 exports.insertFood = insertFood;
 exports.insertAnimal = insertAnimal;
 exports.insertGift = insertGift;
+
+exports.insertGroupTour = insertGroupTour;
+exports.insertCoordinators = insertCoordinators;
+exports.buy = buy;
 
