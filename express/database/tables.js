@@ -77,13 +77,11 @@ exports.createTables =  function createTables(){
                     FOREIGN KEY (username) REFERENCES employee(username));` 
          
      
-
-    // qry +=`CREATE TABLE Animal_Curator
-    //                 (username varchar(20) PRIMARY KEY,
-    //                 stipend decimal,
-    //                 FOREIGN KEY (username) REFERENCES employee(username))` 
-    //      
-    //  
+    // need keeper first
+    // qry +=`CREATE TABLE assigns
+    //                 ()
+         
+     
 
     qry +=`CREATE TABLE Food
                     (food_id uuid PRIMARY KEY,

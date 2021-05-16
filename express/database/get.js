@@ -56,6 +56,8 @@ const giftsSearch = async(v) => {
 }
 
 // EVENTS
+
+
 const allGroupTours = async () => {
     const qry = `select * from Group_Tour`
     const client = getClient();
@@ -195,6 +197,29 @@ const invited = async(v)=>{
     })
 }
 
+const invite = async(v) => {
+    const qry = `select * from invite where inviter='${v.username}'` 
+
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => { 
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows, message: "All is fine"};
+    })
+}
+
+const assigns = async(v) => {
+    const qry = `select * from invite where inviter='${v.username}'` 
+
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => { 
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows, message: "All is fine"};
+    })
+}
+
+
 const requested = async(v)=>{
     const qry = `select * from treatment where requested='${v.username}'` 
 
@@ -228,6 +253,17 @@ const vet = async(uname) => {
     })
 }
 
+const coord = async(uname) => {
+    const qry = `select * from coordinator natural join employee natural join zoouser where username = '${uname}' LIMIT 1`
+
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => { 
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows[0], message: "All is fine"};
+    })
+}
+
 exports.vet = vet;
 exports.keeper = keeper;
 exports.invited = invited;
@@ -248,4 +284,5 @@ exports.groupTour = groupTour;
 exports.conservationOrganization = conservationOrganization;
 exports.educationalEvent = educationalEvent;
 exports.animal_info = animal_info;
+exports.coord = coord;
 

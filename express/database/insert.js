@@ -68,7 +68,6 @@ const insertCoordinators = (v) => {
     const client = getClient();
     client.query(qry, (err,res)=>{
         if(err!==null) console.log(err,qry);
-        
     })
 }
 
@@ -141,6 +140,17 @@ const insertInvite = (v) => {
     const qry = `INSERT INTO invite
                     (id,event_name, event_date, inviter, invitee, request_status) VALUES 
                     ('${uuidV4()}','${v.ename}', '${v.edate}', '${v.inviter}', '${v.invitee}', 'a');
+                `
+    const client = getClient();
+    client.query(qry, (err,res)=>{
+        if(err!==null) console.log(err,qry);
+    }) 
+}
+
+const insertCreates = (v) => {
+    const qry = `INSERT INTO creates
+                    (event_name, event_date, c_username ) VALUES 
+                    ('${v.ename}', '${v.edate}', '${v.username}');
                 `
     const client = getClient();
     client.query(qry, (err,res)=>{
@@ -304,4 +314,5 @@ exports.insertEducationalEvent = insertEducationalEvent;
 exports.insertConservationOrganization = insertConservationOrganization;
 exports.insertCoordinators = insertCoordinators;
 exports.buy = buy;
+exports.insertCreates = insertCreates;
 

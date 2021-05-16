@@ -14,7 +14,7 @@ export function Profile(props){
                 break;    
             case "vet":
                 profile = <VetProfile user={props.user} fail={props.fail} success={props.success}/>
-                break; 
+                break;
             default:
                 break;
         }
