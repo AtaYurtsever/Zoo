@@ -285,4 +285,4 @@ exports.conservationOrganization = conservationOrganization;
 exports.educationalEvent = educationalEvent;
 exports.animal_info = animal_info;
 exports.coord = coord;
-
+exports.invite = invite;
