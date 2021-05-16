@@ -198,8 +198,9 @@ exports.createTables =  function createTables(){
      
 
     qry +=`CREATE TABLE  Comment
-                    (comment_id uuid PRIMARY KEY,
-                    message varchar(40),
+                    (event_name varchar(40), 
+                    comment_id uuid PRIMARY KEY,
+                    message text,
                     comment_date date);` 
          
      
