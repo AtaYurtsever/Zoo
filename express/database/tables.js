@@ -2,6 +2,7 @@ const { getClient } =  require('./db');
 
 exports.createTables =  function createTables(){
     const client = getClient()
+
     var qry = ''
     qry +=`       DROP TABLE buys;
                   DROP TABLE attends;
@@ -28,8 +29,8 @@ exports.createTables =  function createTables(){
                   DROP TABLE visitor;
                   DROP TABLE zooUser;
                   DROP TABLE Food;
-                  ` 
-         
+                 ` 
+    
      
 
     qry +=`CREATE TABLE zooUser
@@ -195,7 +196,7 @@ exports.createTables =  function createTables(){
                     ( event_name varchar(40),
                     username varchar(20),
                     event_date date,
-                    FOREIGN KEY (event_name, event_date) REFERENCES Educational_event(event_name, event_date),
+                    FOREIGN KEY (event_name, event_date) REFERENCES Educational_Event(event_name, event_date),
                     FOREIGN KEY (username) REFERENCES Visitor(username),
                     PRIMARY KEY (username, event_name, event_date));` 
          

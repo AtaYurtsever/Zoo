@@ -7,7 +7,8 @@ var cors = require('cors')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var giftRouter = require('./routes/gshops')
+var giftRouter = require('./routes/gshops');
+var gtRouter = require('./routes/groupTours');
 const { createTables } = require('./database/tables');
 const { populate } = require('./database/populate');
 
@@ -28,8 +29,9 @@ createTables();
 populate();
 
 // app.use('/', indexRouter);
-app.use('/gift', giftRouter )
+app.use('/gift', giftRouter );
 app.use('/auth', usersRouter);
+app.use('/gt', gtRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

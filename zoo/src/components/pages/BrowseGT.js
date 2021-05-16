@@ -159,15 +159,18 @@ export function GtInfo(){
     );
 }
 
-export function BrowseGroupTours(){
-    const [gtours, setGroupTours] = useState([])
+export function BrowseGroupTours(props){
+    const [groupTours, setGroupTours] = useState([])
     const classes = useStyles();
 
 
     useEffect(()=>{
-        axios("https://jsonplaceholder.typicode.com/posts")
+        axios(`http://localhost:3000/gt`)
         .then(data => data.data)
-        .then(data => setGroupTours(data))
+        .then(data => {
+          if(!data.exists) props.setFail(data.message)
+          else setGroupTours(data.groupTours)
+      })
     },[])
 
     return (
@@ -187,7 +190,7 @@ export function BrowseGroupTours(){
       </div>
       <GridList cellHeight={350} >
         {
-            gtours.map(gt => (
+            groupTours.map(gt => (
                 <GridListTile key={gt.title}>
                     <img src={"/gt_logo.jpg"} />
                     <GridListTileBar

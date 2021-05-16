@@ -1,10 +1,5 @@
-
-
-
-
-
 const { uuid1, uuid2, uuid3, uuid4, uuid5, uuid6, uuid7, uuid8, uuid9, uuid10 } = require("./uuid");
-const { insertGiftshop, insertGiftshopManager, insertGift, insertAnimal, insertFood } = require("./insert")
+const { insertCoordinators, insertGroupTour, insertGiftshop, insertGiftshopManager, insertGift, insertAnimal, insertFood } = require("./insert")
 
 
 const date = "2000-05-17T08:04:00.000Z";
@@ -234,10 +229,79 @@ const populategiftShops = () => {
     })
 }
 
+
+const populateGroupTours = () => {
+    insertGroupTour({
+        event_name:"Lions Tour",
+        event_date: date,
+        capacity: 30,
+        price: 50,
+        explanation: "we will be seing lions!!!",
+        length: 2,
+        coord_un: "coord1"
+    })
+    insertGroupTour({
+        event_name:"Penguin Exploration",
+        event_date: date,
+        capacity: 40,
+        price: 90,
+        explanation: "we will be seing penguinz!!!",
+        length: 3,
+        coord_un: "coord2"
+    })
+    insertGroupTour({
+        event_name:"Planting Activiy",
+        event_date: date,
+        capacity: 10,
+        price: 500,
+        explanation: "we will be planting venus flytraps!!! U should join!!!",
+        length: 5,
+        coord_un: "coord1"
+    })
+    insertGroupTour({
+        event_name:"Bird Watching Event for Kids",
+        event_date: date,
+        capacity: 30,
+        price: 5,
+        explanation: "lets watch birds, shall we ?",
+        length: 6,
+        coord_un: "coord2"
+    })
+}
+
+const populateCoordinators = () => {
+    insertCoordinators({
+        username: "coord1",
+        password: "12345",
+        name: "Joshua",
+        surname: "McBottoms",
+        phone: "2132312312",
+        email: "joshua@gmail.com",
+        birthday: date,
+        salary: 5200,
+        job_title: "Coordinator",
+        degree: "Collage Dropout"
+    })
+    insertCoordinators({
+        username: "coord2",
+        password: "6789",
+        name: "Teressa",
+        surname: "Bobba",
+        phone: "345435342",
+        email: "bobba@gmail.com",
+        birthday: date,
+        salary: 7300,
+        job_title: "Coordinator Chief",
+        degree: "Coordinator PhD"
+    })
+}
+
 const populate = ()=>{
     populateFood()
     populateAnimal()
     populategiftShops()
+    populateCoordinators()
+    populateGroupTours()
 }
 
 exports.populate = populate;
