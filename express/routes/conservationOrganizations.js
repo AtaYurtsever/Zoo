@@ -1,5 +1,5 @@
 var express = require('express');
-const { allGroupTours } = require('../database/get');
+const { allConservationOrganizations } = require('../database/get');
 const { createTables } = require('../database/tables');
 var router = express.Router();
 

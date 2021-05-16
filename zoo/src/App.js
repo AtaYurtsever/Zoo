@@ -144,6 +144,15 @@ function App() {
               <Route path="/events">
                 <Events/>
               </Route>
+              <Route path="/gt/:name">
+                <GtInfo success={setSuccess} fail={setFail} user={user}/>
+              </Route>
+              <Route path="/ev/:name">
+                <EvInfo success={setSuccess} fail={setFail} user={user}/>
+              </Route>
+              <Route path="/co/:name">
+                <CoInfo success={setSuccess} fail={setFail} user={user}/>
+              </Route>
               <Route path="/gt">
                 <BrowseGroupTours/>
               </Route>
@@ -152,15 +161,6 @@ function App() {
               </Route>
               <Route path="/co">
                 <BrowseConsOrg/>
-              </Route>
-              <Route path="/gt_info">
-                <GtInfo/>
-              </Route>
-              <Route path="/ev_info">
-                <EvInfo/>
-              </Route>
-              <Route path="/co_info">
-                <CoInfo/>
               </Route>
               <Route exact path="/shops/:name">
                 <Gifts success={setSuccess} fail={setFail} user={user}/>
