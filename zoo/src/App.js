@@ -136,11 +136,11 @@ function App() {
               <Route path="/register">
                 <Register setUser={setUser} success={setSuccess} fail={setFail}/> 
               </Route>
+              <Route path="/animals/:name/:type">
+                <AnimalInfo setUser={setUser} success={setSuccess} fail={setFail}/>
+              </Route>
               <Route path="/animals">
                 <Animals/>
-              </Route>
-              <Route path="/animal_info">
-                <AnimalInfo/> 
               </Route>
               <Route path="/profile">
                 <Profile success={setSuccess} fail={setFail} user={user}/>

@@ -14,32 +14,34 @@ const useStyles = makeStyles(()=>({
   },
 }))
 
-export function AnimalInfo(){
+export function AnimalInfo(props){
     const classes = useStyles();
     const[expanded, setExpanded] = React.useState(false);
-    const [animals, setAnimals] = useState([])
+    const [a, setAnimals] = useState(null)
+    const {name, type} = useParams()
 
 
-    useEffect(() => {
-        axios("https://jsonplaceholder.typicode.com/posts")
+    const onLoad = () => {
+        axios.post(`http://localhost:3003/animals/get`, {name:name, type:type} )
         .then(data=>data.data)
-        .then(data => setAnimals(data))
-    },[])
-
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    };
-
-    return (
+        .then(data => {
+            if(!data.exists) props.fail(data.message)
+            else setAnimals(data.value)
+        })
+    }
+    useEffect(onLoad, [])
+    console.log(a)
+    if(a)
+    return <>
         <Card className ={classes.root}>
             <CardHeader
-                title="{animals.name}"
-                subheader="{{animals.type} + {animals.weight}"
+                title={name}
+                subheader={`${a.type}  ${a.notable_features}`}
             />
             <img src={"/animals/a0.jpg"} width="600" height="400" align="center"/>
-
         </Card>
-    );
+    </>
+    else return <></>
 }
 
 
@@ -56,15 +58,6 @@ export function Animals(props){
         })
     },[])
 
-    // useEffect(() => {
-    //     axios(`http://localhost:3003/animals/${name}`)
-    //     .then(data => data.data)
-    //     .then(data =>{
-    //         if(!data.exists) props.fail(data.message)
-    //         else setAnimals(data.animals)
-    //     })
-    // },[])
-
     return <GridList cellHeight={350} >
         {
             animals.map((animal,index) => (
@@ -76,7 +69,7 @@ export function Animals(props){
                         subtitle={animal.type}
                         actionIcon={
                         <IconButton aria-label={`info about ${animal.name}`} className={classes.icon}>
-                        <Button component={Link} to="/animal_info" className={classes.icon}>
+                        <Button component={Link} to={`/animals/${animal.name}/${animal.type}`} className={classes.icon}>
                             <InfoIcon/>
                             </Button>
                         </IconButton>

@@ -106,6 +106,17 @@ const conservationOrganization = async (ename) => {
     })
 }
 
+const animal_info = async(aname, atype) => {
+    const qry = `select * from  animals where name = '${aname}' and type = '${atype}'`
+    console.log(qry, aname, atype)
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => {
+        if(err) return {exist:false, value:null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows[0], message: "All is fine"};
+    })
+}
+
 const educationalEvent = async (ename) => {
     const qry = `select * from Educational_Event natural join Event where event_name = '${ename}'`
     const client = getClient();
@@ -236,3 +247,5 @@ exports.allConservationOrganizations = allConservationOrganizations;
 exports.groupTour = groupTour;
 exports.conservationOrganization = conservationOrganization;
 exports.educationalEvent = educationalEvent;
+exports.animal_info = animal_info;
+

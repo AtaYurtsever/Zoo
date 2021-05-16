@@ -94,8 +94,8 @@ exports.createTables =  function createTables(){
 
                     //TODO: CAGE ID
     qry +=`CREATE TABLE Animals
-                    (name char(40),
-                    type char(120),
+                    (name varchar(40),
+                    type varchar(120),
                     gender char(1),
                     weight float,
                     birthday date,
