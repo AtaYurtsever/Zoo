@@ -49,8 +49,8 @@ const allGroupTours = async () => {
     const client = getClient();
 
     return client.query(qry).then((res,err) => {
-        if(err) return {exists: false, shops: null, message: "Uh oh there is a server error"}
-        else return {exists: true, shops: res.rows, message: "All is fine"};
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows, message: "All is fine"};
     })
 }
 const visitor = async (vuname) => {
@@ -115,7 +115,6 @@ exports.visitor = visitor;
 exports.login = login;
 exports.allShops = allShops;
 exports.gifts = gifts;
-exports.allGroupTours;
 exports.profit = profit;
 exports.soldStuff = soldStuff;
 exports.allAnimals = allAnimals;

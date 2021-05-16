@@ -123,7 +123,7 @@ exports.createTables =  function createTables(){
     // EVENT RELATED ENTITY TABLES
     qry +=`CREATE TABLE Event
                     (event_name VARCHAR(40),
-                    event_date DATE,
+                    event_date date,
                     explanation text,
                     length decimal,
                     coord_un VARCHAR(20),

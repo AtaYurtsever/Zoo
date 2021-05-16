@@ -122,10 +122,10 @@ const insertGroupTour = (v) => {
     const qry = `INSERT INTO Event
                     (event_name, event_date, explanation, length, coord_un) VALUES 
                     ('${v.event_name}', '${v.event_date}', 
-                    '${v.explanation}', ${v.length}, '${v.coord_un}');
+                    '${v.explanation}', '${v.length}', '${v.coord_un}');
                 INSERT INTO Group_Tour
                     (event_name, event_date, capacity, price)
-                    VALUES ('${v.event_name}', '${v.event_date}', ${v.capacity}, ${v.price});
+                    VALUES ('${v.event_name}', '${v.event_date}', '${v.capacity}', '${v.price}');
                 `
     const client = getClient();
     client.query(qry, (err,res)=>{

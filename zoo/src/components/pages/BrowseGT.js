@@ -169,7 +169,7 @@ export function BrowseGroupTours(props){
         .then(data => data.data)
         .then(data => {
           if(!data.exists) props.setFail(data.message)
-          else setGroupTours(data.groupTours)
+          else setGroupTours(data.value)
       })
     },[])
 
@@ -191,12 +191,12 @@ export function BrowseGroupTours(props){
       <GridList cellHeight={350} >
         {
             groupTours.map(gt => (
-                <GridListTile key={gt.title}>
+                <GridListTile key={gt.event_name}>
                     <img src={"/gt_logo.jpg"} />
                     <GridListTileBar
-                        title={gt.title}
+                        title={gt.event_name}
                         actionIcon={
-                            <IconButton aria-label={`info about ${gt.title}`} className={classes.icon}>
+                            <IconButton aria-label={`info about ${gt.event_name}`} className={classes.icon}>
                               <Button component={Link} to="/gt_info" className={classes.icon}>
                               <InfoIcon />
                               </Button>
