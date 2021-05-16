@@ -80,7 +80,7 @@ const groupTour = async (ename) => {
 
     return client.query(qry).then((res,err) => {
         if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
-        else return {exists: true, value: res.rows, message: "All is fine"};
+        else return {exists: true, value: res.rows[0], message: "All is fine"};
     })
 }
 
