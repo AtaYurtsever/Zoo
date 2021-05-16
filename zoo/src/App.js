@@ -5,9 +5,9 @@ import { Animals, AnimalInfo } from './components/pages/Animals';
 
 import { Register } from './components/pages/Register';
 import { Events } from './components/pages/Event';
-import { BrowseGroupTours, GtInfo } from './components/pages/BrowseGT';
-import { BrowseEdEvents, EvInfo } from './components/pages/BrowseEV';
-import { BrowseConsOrg, CoInfo } from './components/pages/BrowseCO';
+import { BrowseGroupTours, GtInfo, GtComment, GtComplaint } from './components/pages/BrowseGT';
+import { BrowseEdEvents, EvInfo, EvComment, EvComplaint } from './components/pages/BrowseEV';
+import { BrowseConsOrg, CoInfo, CoComment, CoComplaint } from './components/pages/BrowseCO';
 import { useState } from 'react';
 import MuiAlert from '@material-ui/lab/Alert';
 import axios from 'axios';
@@ -148,11 +148,29 @@ function App() {
               <Route path="/events">
                 <Events/>
               </Route>
+              <Route path="/gt/comment/:name">
+                <GtComment/>
+              </Route>
+              <Route path="/gt/complaint/:name">
+                <GtComplaint/>
+              </Route>
               <Route path="/gt/:name">
                 <GtInfo/>
               </Route>
+              <Route path="/ev/comment/:name">
+                <EvComment/>
+              </Route>
+              <Route path="/ev/complaint/:name">
+                <EvComplaint/>
+              </Route>
               <Route path="/ev/:name">
                 <EvInfo/>
+              </Route>
+              <Route path="/co/comment/:name">
+                <CoComment/>
+              </Route>
+              <Route path="/co/complaint/:name">
+                <CoComplaint/>
               </Route>
               <Route path="/co/:name">
                 <CoInfo/>

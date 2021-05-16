@@ -104,6 +104,26 @@ const educationalEvent = async (ename) => {
     })
 }
 
+const allComments = async (ename) => {
+    const qry = `select * from Comment where event_name = '${ename}'`
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => {
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows, message: "All is fine"};
+    })
+}
+
+const allComplaintForms = async (ename) => {
+    const qry = `select * from Complaint_Form where event_name = '${ename}'`
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => {
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows, message: "All is fine"};
+    })
+}
+
 const visitor = async (vuname) => {
     const qry = `select * from visitor natural join zoouser where username = '${vuname}' LIMIT 1`
 
@@ -175,3 +195,5 @@ exports.allConservationOrganizations = allConservationOrganizations;
 exports.groupTour = groupTour;
 exports.conservationOrganization = conservationOrganization;
 exports.educationalEvent = educationalEvent;
+exports.allComments = allComments;
+exports.allComplaintForms = allComplaintForms;
