@@ -1,6 +1,7 @@
 
 import { VisitorProfile } from './VisitorProfile';
 import { GSMProfile } from './GSMProfile';
+import { VetProfile } from './VetProfile';
 export function Profile(props){
     var profile = <></>;
     if(props.user)
@@ -11,7 +12,9 @@ export function Profile(props){
             case "giftshopManager":
                 profile = <GSMProfile user={props.user} fail={props.fail} success={props.success}/>
                 break;    
-                    
+            case "vet":
+                profile = <VetProfile user={props.user} fail={props.fail} success={props.success}/>
+                break;
             default:
                 break;
         }

@@ -9,6 +9,8 @@ const login = async (username, password) => {
                     (select username,'visitor' as typ from visitor) 
                     union 
                     (select username,'giftshopManager' as typ from giftshopmanager )
+                    union
+                    (select username,'vet' as typ from veterinarian )
                 ) as utyp 
                 natural join zooUser
                 WHERE username = '${username}' AND password = '${password}'
@@ -34,7 +36,17 @@ const allShops = async () => {
 }
 
 const gifts = async(shop) => {
-    const qry = `select * from gift where shop = '${shop}' and product_code not in(select product_code from buys)`
+    const qry = `select * from gift where shop = '${shop}' and product_code not in(select product_code from buys);`
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => {
+        if(err) return {exists: false, gifts: null, message: "Uh oh there is a server error"}
+        else return {exists: true, gifts: res.rows, message: "All is fine"};
+    })
+}
+
+const giftsSearch = async(v) => {
+    const qry = `select * from gift where shop = '${v.shop}' and product_code not in(select product_code from buys) and name like '%${v.search}%' and price::DECIMAL >= ${v.min} and price::DECIMAL <= ${v.max};`
     const client = getClient();
 
     return client.query(qry).then((res,err) => {
@@ -44,6 +56,8 @@ const gifts = async(shop) => {
 }
 
 // EVENTS
+
+
 const allGroupTours = async () => {
     const qry = `select * from Group_Tour`
     const client = getClient();
@@ -90,6 +104,17 @@ const conservationOrganization = async (ename) => {
 
     return client.query(qry).then((res,err) => {
         if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows[0], message: "All is fine"};
+    })
+}
+
+const animal_info = async(aname, atype) => {
+    const qry = `select * from  animals where name = '${aname}' and type = '${atype}'`
+    console.log(qry, aname, atype)
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => {
+        if(err) return {exist:false, value:null, message: "Uh oh there is a server error"}
         else return {exists: true, value: res.rows[0], message: "All is fine"};
     })
 }
@@ -181,6 +206,89 @@ const allAnimals = async() => {
     })
 }
 
+const invited = async(v)=>{
+    const qry = `select * from invite where invitee='${v.username}'` 
+
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => { 
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows, message: "All is fine"};
+    })
+}
+
+const invite = async(v) => {
+    const qry = `select * from invite where inviter='${v.username}'` 
+
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => { 
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows, message: "All is fine"};
+    })
+}
+
+const assigns = async(v) => {
+    const qry = `select * from invite where inviter='${v.username}'` 
+
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => { 
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows, message: "All is fine"};
+    })
+}
+
+
+const requested = async(v)=>{
+    const qry = `select * from treatment where requested='${v.username}'` 
+
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => { 
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows, message: "All is fine"};
+    })
+}
+
+const keeper = async(uname) => {
+    const qry = `select * from keeper natural join employee natural join zoouser where username = '${uname}' LIMIT 1`
+
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => { 
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows[0], message: "All is fine"};
+    })
+}
+
+const vet = async(uname) => {
+    const qry = `select * from veterinarian natural join employee natural join zoouser where username = '${uname}' LIMIT 1`
+
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => { 
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows[0], message: "All is fine"};
+    })
+}
+
+const coord = async(uname) => {
+    const qry = `select * from coordinator natural join employee natural join zoouser where username = '${uname}' LIMIT 1`
+
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => { 
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows[0], message: "All is fine"};
+    })
+}
+
+exports.vet = vet;
+exports.keeper = keeper;
+exports.invited = invited;
+exports.requested = requested;
+exports.giftsSearch = giftsSearch;
 exports.gsm = gsm;
 exports.visitor = visitor;
 exports.login = login;
@@ -197,3 +305,6 @@ exports.conservationOrganization = conservationOrganization;
 exports.educationalEvent = educationalEvent;
 exports.allComments = allComments;
 exports.allComplaintForms = allComplaintForms;
+exports.animal_info = animal_info;
+exports.coord = coord;
+exports.invite = invite;

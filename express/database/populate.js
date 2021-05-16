@@ -1,5 +1,20 @@
 const { uuid1, uuid2, uuid3, uuid4, uuid5, uuid6, uuid7, uuid8, uuid9, uuid10 } = require("./uuid");
-const { insertComplaintForm, insertComment, insertConservationOrganization, insertEducationalEvent, insertCoordinators, insertGroupTour, insertGiftshop, insertGiftshopManager, insertGift, insertAnimal, insertFood } = require("./insert")
+const { 
+    insertComplaintForm, 
+    insertComment,
+    insertConservationOrganization,
+     insertEducationalEvent, 
+     insertCoordinators, 
+     insertGroupTour, 
+     insertGiftshop, 
+     insertGiftshopManager, 
+     insertGift, 
+     insertAnimal, 
+     insertFood, 
+     insertVeterinarian, 
+     insertInvite,
+     insertKeeper,
+     insertTreatment } = require("./insert")
 
 
 const date = "2000-05-17T08:04:00.000Z";
@@ -372,7 +387,7 @@ const populateComplaintForms = () => {
 const populateCoordinators = () => {
     insertCoordinators({
         username: "coord1",
-        password: "12345",
+        password: "123",
         name: "Joshua",
         surname: "McBottoms",
         phone: "2132312312",
@@ -384,7 +399,7 @@ const populateCoordinators = () => {
     })
     insertCoordinators({
         username: "coord2",
-        password: "6789",
+        password: "123",
         name: "Teressa",
         surname: "Bobba",
         phone: "345435342",
@@ -396,16 +411,70 @@ const populateCoordinators = () => {
     })
 }
 
+const populateVeterinarianKeeper = () => {
+    insertVeterinarian({
+        username: "vetty",
+        password: "123",
+        name: "Vetty",
+        surname: "Bobba",
+        phone: "345435342",
+        email: "bobbaaa@gmail.com",
+        birthday: date,
+        salary: 7650,
+        job_title: "Senior Vetrinarian",
+        degree: "Vet PhD"
+    })
+
+    insertKeeper({
+        username: "keepy",
+        password: "123",
+        name: "Ketty",
+        surname: "Bobba",
+        phone: "34435342",
+        email: "bombbaaar@gmail.com",
+        birthday: date,
+        salary: 7650,
+        job_title: "Senior Vetrinarian",
+    })
+}
+
+const populateTreatmentInvite = () => {
+    insertTreatment({
+        requested: "vetty",
+        requester: "keepy",
+        animal_name: "Pinchy",
+        animal_type: "crab",
+        condition: "Skin rash"
+    })
+
+    insertTreatment({
+        requested: "vetty",
+        requester: "keepy",
+        animal_name: "Kicky",
+        animal_type: "panda",
+        condition: "cannot kick"
+    })
+
+    insertInvite({
+        ename: "Seminar on Fish",
+        edate: date,
+        inviter: "coord1",
+        invitee: "vetty"
+    })
+}
+
 const populate = ()=>{
     populateFood()
     populateAnimal()
     populategiftShops()
     populateCoordinators()
     populateGroupTours()
+    populateVeterinarianKeeper()
     populateEducationalEvents()
     populateConservationOrganizations()
     populateComments()
     populateComplaintForms()
+    populateTreatmentInvite()
 }
 
 exports.populate = populate;

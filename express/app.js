@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors')
 
+var coordRouter = require('./routes/coord');
+var vetRouter = require('./routes/vet');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var giftRouter = require('./routes/gshops');
@@ -31,7 +33,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 createTables();
 populate();
 
-// app.use('/', indexRouter);
+app.use('/coord', coordRouter);
+app.use('/vet', vetRouter);
 app.use('/gift', giftRouter );
 app.use('/auth', usersRouter);
 app.use('/animals', animalRouter);
