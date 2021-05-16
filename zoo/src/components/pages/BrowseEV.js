@@ -146,9 +146,12 @@ export function BrowseEdEvents(){
 
 
     useEffect(()=>{
-        axios("https://jsonplaceholder.typicode.com/posts")
+        axios("http://localhost:3003/ev")
         .then(data => data.data)
-        .then(data => setEdEvents(data))
+        .then(data => {
+          if(!data.exists) props.setFail(data.message)
+          else setEdEvents(data.value)
+      })
     },[])
 
     return (
@@ -169,12 +172,12 @@ export function BrowseEdEvents(){
       <GridList cellHeight={350} >
         {
             edEvents.map(ev => (
-                <GridListTile key={ev.title}>
+                <GridListTile key={ev.event_name}>
                     <img src={"/ev_logo.jpg"} />
                     <GridListTileBar
-                        title={ev.title}
+                        title={ev.event_name}
                         actionIcon={
-                            <IconButton aria-label={`info about ${ev.title}`} className={classes.icon}>
+                            <IconButton aria-label={`info about ${ev.event_name}`} className={classes.icon}>
                               <Button component={Link} to="/ev_info" className={classes.icon}>
                               <InfoIcon />
                               </Button>

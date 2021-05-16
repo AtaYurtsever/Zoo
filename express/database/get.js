@@ -53,6 +53,27 @@ const allGroupTours = async () => {
         else return {exists: true, value: res.rows, message: "All is fine"};
     })
 }
+
+const allEducationalEvents = async () => {
+    const qry = `select * from Educational_Event`
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => {
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows, message: "All is fine"};
+    })
+}
+
+const allConservationOrganizations = async () => {
+    const qry = `select * from Conservation_Organization`
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => {
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows, message: "All is fine"};
+    })
+}
+
 const visitor = async (vuname) => {
     const qry = `select * from visitor natural join zoouser where username = '${vuname}' LIMIT 1`
 
@@ -119,3 +140,5 @@ exports.profit = profit;
 exports.soldStuff = soldStuff;
 exports.allAnimals = allAnimals;
 exports.allGroupTours = allGroupTours;
+exports.allEducationalEvents = allEducationalEvents;
+exports.allConservationOrganizations = allConservationOrganizations;

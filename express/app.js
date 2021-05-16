@@ -10,6 +10,8 @@ var usersRouter = require('./routes/users');
 var giftRouter = require('./routes/gshops');
 var animalRouter = require('./routes/animalz');
 var gtRouter = require('./routes/groupTours');
+var evRouter = require('./routes/educationalEvents');
+var coRouter = require('./routes/conservationOrganizations');
 const { createTables } = require('./database/tables');
 const { populate } = require('./database/populate');
 
@@ -34,6 +36,8 @@ app.use('/gift', giftRouter );
 app.use('/auth', usersRouter);
 app.use('/animals', animalRouter);
 app.use('/gt', gtRouter);
+app.use('/ev', evRouter);
+app.use('/co', coRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

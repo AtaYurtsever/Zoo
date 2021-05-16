@@ -158,9 +158,12 @@ export function BrowseConsOrg(){
 
 
     useEffect(()=>{
-        axios("https://jsonplaceholder.typicode.com/posts")
+        axios("http://localhost:3003/co")
         .then(data => data.data)
-        .then(data => setConsOrg(data))
+        .then(data => {
+          if(!data.exists) props.setFail(data.message)
+          else setConsOrg(data.value)
+      })
     },[])
 
     return (
@@ -181,12 +184,12 @@ export function BrowseConsOrg(){
     <GridList cellHeight={350} >
         {
             consOrgs.map(co => (
-                <GridListTile key={co.title}>
+                <GridListTile key={co.event_name}>
                     <img src={"/co_logo.jpg"} />
                     <GridListTileBar
-                        title={co.title}
+                        title={co.event_name}
                         actionIcon={
-                            <IconButton aria-label={`info about ${co.title}`} className={classes.icon}>
+                            <IconButton aria-label={`info about ${co.event_name}`} className={classes.icon}>
                               <Button component={Link} to="/co_info" className={classes.icon}>
                               <InfoIcon />
                               </Button>
