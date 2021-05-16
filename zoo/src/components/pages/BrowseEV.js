@@ -140,7 +140,7 @@ export function EvInfo(){
 }
 
 
-export function BrowseEdEvents(){
+export function BrowseEdEvents(props){
     const [edEvents, setEdEvents] = useState([])
     const classes = useStyles();
 

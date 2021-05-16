@@ -8,7 +8,7 @@ router.get('/', async function(req, res, next) {
 });
 
 router.get('/:name', async function(req, res, next) {
-    groupTour(req.params.shop).then(val => res.send(val)) 
+    groupTour(req.params.event_name).then(val => res.send(val)) 
 });
 
 module.exports = router;

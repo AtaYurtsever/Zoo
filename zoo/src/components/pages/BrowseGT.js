@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import InputBase from '@material-ui/core/InputBase';
 import { fade } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import { Link, useHistory } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import InfoIcon from '@material-ui/icons/Info';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme)=>({
 }))
 
 
-export function GtInfo(){
+export function GtInfo(props){
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
     const [gt, setGroupTours] = useState([])
