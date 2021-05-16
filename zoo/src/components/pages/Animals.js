@@ -1,8 +1,11 @@
-import { GridList, GridListTile, GridListTileBar, IconButton, makeStyles } from "@material-ui/core"
+import { Button, CardHeader, GridList, GridListTile, GridListTileBar, IconButton, makeStyles } from "@material-ui/core"
 import { Info } from "@material-ui/icons"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link, useParams } from 'react-router-dom';
+import Card from '@material-ui/core/Card';
+import React from 'react';
+import InfoIcon from '@material-ui/icons/Info';
 
 const useStyles = makeStyles(()=>({
     gridList: {
@@ -11,8 +14,39 @@ const useStyles = makeStyles(()=>({
   },
 }))
 
+export function AnimalInfo(){
+    const classes = useStyles();
+    const[expanded, setExpanded] = React.useState(false);
+    const [animals, setAnimals] = useState([])
+
+
+    useEffect(() => {
+        axios("https://jsonplaceholder.typicode.com/posts")
+        .then(data=>data.data)
+        .then(data => setAnimals(data))
+    },[])
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
+
+    return (
+        <Card className ={classes.root}>
+            <CardHeader
+                title="{animals.name}"
+                subheader="{{animals.type} + {animals.weight}"
+            />
+            <img src={"/animals/a0.jpg"} width="600" height="400" align="center"/>
+
+        </Card>
+    );
+}
+
+
+
 export function Animals(props){
     const [animals, setAnimals] = useState([])
+    const classes = useStyles()
     useEffect(()=>{
         axios("http://localhost:3003/animals")
         .then(data => data.data)
@@ -40,11 +74,13 @@ export function Animals(props){
                         
                         title={animal.name}
                         subtitle={animal.type}
-                            actionIcon={
-                        <IconButton aria-label={`info about ${animal.name}`}>
-                            <Info/>
+                        actionIcon={
+                        <IconButton aria-label={`info about ${animal.name}`} className={classes.icon}>
+                        <Button component={Link} to="/animal_info" className={classes.icon}>
+                            <InfoIcon/>
+                            </Button>
                         </IconButton>
-                    }
+                        }
                     />
                 </GridListTile>
             ))

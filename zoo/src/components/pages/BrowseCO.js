@@ -152,7 +152,7 @@ export function CoInfo(){
 }
 
 
-export function BrowseConsOrg(){
+export function BrowseConsOrg(props){
     const [consOrgs, setConsOrg] = useState([])
     const classes = useStyles();
 

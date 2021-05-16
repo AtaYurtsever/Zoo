@@ -1,7 +1,8 @@
 import { AppBar, Toolbar, Typography, Button, Dialog, DialogTitle, TextField, DialogActions, Snackbar, IconButton, Menu, MenuItem } from "@material-ui/core";
 import {Link, Switch, Route, BrowserRouter} from "react-router-dom"
 import { Welcome } from './components/pages/welcome';
-import { Animals } from './components/pages/Animals';
+import { Animals, AnimalInfo } from './components/pages/Animals';
+
 import { Register } from './components/pages/Register';
 import { Events } from './components/pages/Event';
 import { BrowseGroupTours, GtInfo } from './components/pages/BrowseGT';
@@ -138,6 +139,9 @@ function App() {
               <Route path="/animals">
                 <Animals/>
               </Route>
+              <Route path="/animal_info">
+                <AnimalInfo/> 
+              </Route>
               <Route path="/profile">
                 <Profile success={setSuccess} fail={setFail} user={user}/>
               </Route>
@@ -145,7 +149,7 @@ function App() {
                 <Events/>
               </Route>
               <Route path="/gt/:name">
-                <GtInfo success={setSuccess} fail={setFail} user={user}/>
+                <GtInfo/>
               </Route>
               <Route path="/ev/:name">
                 <EvInfo success={setSuccess} fail={setFail} user={user}/>
