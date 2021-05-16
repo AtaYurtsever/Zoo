@@ -34,7 +34,17 @@ const allShops = async () => {
 }
 
 const gifts = async(shop) => {
-    const qry = `select * from gift where shop = '${shop}' and product_code not in(select product_code from buys)`
+    const qry = `select * from gift where shop = '${shop}' and product_code not in(select product_code from buys);`
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => {
+        if(err) return {exists: false, gifts: null, message: "Uh oh there is a server error"}
+        else return {exists: true, gifts: res.rows, message: "All is fine"};
+    })
+}
+
+const giftsSearch = async(v) => {
+    const qry = `select * from gift where shop = '${v.shop}' and product_code not in(select product_code from buys) and name like '%${v.search}%' and price::DECIMAL >= ${v.min} and price::DECIMAL <= ${v.max};`
     const client = getClient();
 
     return client.query(qry).then((res,err) => {
@@ -110,6 +120,8 @@ const allAnimals = async() => {
     })
 }
 
+
+exports.giftsSearch = giftsSearch;
 exports.gsm = gsm;
 exports.visitor = visitor;
 exports.login = login;

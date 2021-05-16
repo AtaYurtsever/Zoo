@@ -41,8 +41,8 @@ const insertVisitor = (v) => {
                 ('${v.username}', '${v.password}', 
                 '${v.name}', '${v.surname}', 'm', 
                 '${v.phone}', '${v.email}' ,'${bday}');
-        INSERT INTO Coordinator(username, degree) VALUES
-                    ('${v.username}', '${v.degree}')
+        INSERT INTO visitor(username, total_money) VALUES
+                ('${v.username}', 0);
     `
     const client = getClient();
     client.query(qry, (err,res)=>{
@@ -173,6 +173,26 @@ const addMoney = async (v) => {
 
 }
 
+const insertVeterinarian = (v) => {
+    var bday = v.birthday.substr(0,10);
+    const insertVisitorText = `
+        INSERT INTO zooUser
+                (username, password, name, surname,
+                sex, phone, email,birthday) VALUES 
+                ('${v.username}', '${v.password}', 
+                '${v.name}', '${v.surname}', 'm', 
+                '${v.phone}', '${v.email}' ,'${bday}');
+        INSERT INTO employee(username, salary, job_title) VALUES
+                    ('${v.username}', ${v.salary}, '${v.job_title}');
+        INSERT INTO veterinarian(username, shop_name) VALUES
+                    ('${v.username}', '${v.degree}')
+    `
+    const client = getClient();
+    client.query(insertVisitorText, (err,res)=>{
+        if(err!==null) console.log(err,insertVisitorText);
+    })
+}
+
 exports.insertGiftshop = insertGiftshop;
 exports.insertGiftshopManager = insertGiftshopManager;
 exports.insertVisitor = insertVisitor;
@@ -180,6 +200,7 @@ exports.insertFood = insertFood;
 exports.insertAnimal = insertAnimal;
 exports.insertGift = insertGift;
 exports.addMoney = addMoney;
+exports.insertVeterinarian = insertVeterinarian;
 
 exports.insertGroupTour = insertGroupTour;
 exports.insertCoordinators = insertCoordinators;
