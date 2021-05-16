@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import InputBase from '@material-ui/core/InputBase';
 import { fade } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import { Link, useHistory } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import InfoIcon from '@material-ui/icons/Info';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -71,38 +71,44 @@ const useStyles = makeStyles((theme)=>({
   }
 }))
 
-export function EvInfo(){
+export function EvInfo(props){
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
-    const [ev, setEdEvents] = useState([])
-  
-    useEffect(()=>{
-        axios("https://jsonplaceholder.typicode.com/posts")
-        .then(data => data.data)
-        .then(data => setEdEvents(data))
-    },[])
+    const [ev, setEdEvents] = useState(null)
+    const {name} = useParams()
 
     const handleExpandClick = () => {
       setExpanded(!expanded);
     };
-  
-    return (
+
+    const onLoad = (props)=>{
+      axios(`http://localhost:3003/ev/${name}`)
+      .then(data => data.data)
+      .then(data => {
+          if(!data.exists) props.fail(data.message)
+          else setEdEvents(data.value)
+      })
+    }
+    useEffect(onLoad,[])
+    console.log(ev)
+    if( ev)
+    return <>
       <Card className={classes.root}>
         <CardHeader
-          title="{ev.event_name}"
-          subheader="{{ev.event_date} + {ev.time}}"
+          title={name}
+          subheader={`${ev.event_date}`}
         />
         <img src={"/ev_logo.jpg"}  width="600" height="400" align="center"/>
         <CardContent>
         
           <Typography variant="body2" color="textSecondary" component="p">
-            Topic: +"{ev.topic}"
+            Topic: {ev.topic}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Length: +"{ev.length}"
+            Length: {ev.length}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Veterinarians Joining: vet names...
+            Veterinarians Joining: TODO
           </Typography>
 
         </CardContent>
@@ -131,12 +137,13 @@ export function EvInfo(){
           <CardContent>
             <Typography paragraph>Explanation about the Event:</Typography>
             <Typography paragraph>
-                "{ev.explanation}"
+                {ev.explanation}
             </Typography>
           </CardContent>
         </Collapse>
       </Card>
-    );
+    </>
+    else return <></>
 }
 
 
@@ -178,7 +185,7 @@ export function BrowseEdEvents(props){
                         title={ev.event_name}
                         actionIcon={
                             <IconButton aria-label={`info about ${ev.event_name}`} className={classes.icon}>
-                              <Button component={Link} to="/ev_info" className={classes.icon}>
+                              <Button component={Link} to={`/ev/${ev.event_name}`} className={classes.icon}>
                               <InfoIcon />
                               </Button>
                             </IconButton>

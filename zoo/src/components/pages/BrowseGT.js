@@ -79,12 +79,6 @@ export function GtInfo(props){
     const [gt, setGroupTours] = useState(null)
     const {name} = useParams()
   
-    /*useEffect(()=>{
-        axios("https://jsonplaceholder.typicode.com/posts")
-        .then(data => data.data)
-        .then(data => setGroupTours(data))
-    },[])
-    */
     const handleExpandClick = () => {
       setExpanded(!expanded);
     };
@@ -104,7 +98,7 @@ export function GtInfo(props){
       <Card className={classes.root}>
         <CardHeader
           title={name}
-          subheader= {`${gt.event_date} ${gt.time}`}
+          subheader= {`${gt.event_date}`}
         />
         <img src={"/gt_logo.jpg"}  width="600" height="400" align="center"/>
         <CardContent>
