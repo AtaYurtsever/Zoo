@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import InputBase from '@material-ui/core/InputBase';
 import { fade } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import { Link, useHistory } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import InfoIcon from '@material-ui/icons/Info';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -74,40 +74,46 @@ const useStyles = makeStyles((theme)=>({
   },
 }))
 
-export function CoInfo(){
+export function CoInfo(props){
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
-    const [co, setConsOrg] = useState([])
-  
-    useEffect(()=>{
-        axios("https://jsonplaceholder.typicode.com/posts")
-        .then(data => data.data)
-        .then(data => setConsOrg(data))
-    },[])
-
+    const [co, setConsOrg] = useState(null)
+    const {name} = useParams()
+   
     const handleExpandClick = () => {
       setExpanded(!expanded);
     };
-  
-    return (
+
+    const onLoad = (props)=>{
+      axios(`http://localhost:3003/co/${name}`)
+      .then(data => data.data)
+      .then(data => {
+          if(!data.exists) props.fail(data.message)
+          else setConsOrg(data.value)
+      })
+    }
+    useEffect(onLoad,[])
+    console.log(co)
+    if( co)
+    return <>
       <Card className={classes.root}>
         <CardHeader
-          title="{co.event_name}"
-          subheader="{{co.event_date} + {co.time}}"
+          title={name}
+          subheader={`${co.event_date}`}
         />
         <img src={"/co_logo.jpg"}  width="600" height="400" align="center"/>
         <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-            Purpose: +"{co.purpose}"
+            Purpose: {co.purpose}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Target Money: +"{co.target_money}"
+            Target Money: {co.target_money}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Target Place: +"{co.target_place}"
+            Target Place: {co.target_place}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Length: +"{co.length}"
+            Length: {co.length}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
@@ -143,12 +149,13 @@ export function CoInfo(){
           <CardContent>
             <Typography paragraph>Explanation about the Organization:</Typography>
             <Typography paragraph>
-                "{co.explanation}"
+                {co.explanation}
             </Typography>
           </CardContent>
         </Collapse>
       </Card>
-    );
+    </>
+    else return <></>
 }
 
 
@@ -190,7 +197,7 @@ export function BrowseConsOrg(props){
                         title={co.event_name}
                         actionIcon={
                             <IconButton aria-label={`info about ${co.event_name}`} className={classes.icon}>
-                              <Button component={Link} to="/co_info" className={classes.icon}>
+                              <Button component={Link} to={`/co/${co.event_name}`} className={classes.icon}>
                               <InfoIcon />
                               </Button>
                             </IconButton>
