@@ -56,7 +56,7 @@ const allGroupTours = async () => {
 }
 
 // Animals Related
-const AllAnimals = async() => {
+const allAnimals = async() => {
     const qry = `select * from Animals`
 
     const client = getClient();

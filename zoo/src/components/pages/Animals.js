@@ -13,36 +13,35 @@ const useStyles = makeStyles(()=>({
 
 export function Animals(props){
     const [animals, setAnimals] = useState([])
-    const {name} = useParams()
-    // useEffect(()=>{
-    //     axios("http://localhost:3003/animals")
-    //     .then(data => data.data)
-    //     .then(data => {
-    //         if(!data.exists) props.setFail(data.message) 
-    //         else setAnimals(data.animals)
-    //     })
-    // },[])
-
-    useEffect(() => {
-        axios(`http://localhost:3003/animals/${name}`)
+    useEffect(()=>{
+        axios("http://localhost:3003/animals")
         .then(data => data.data)
-        .then(data =>{
-            if(!data.exists) props.fail(data.message)
+        .then(data => {
+            if(!data.exists) props.setFail(data.message) 
             else setAnimals(data.animals)
         })
     },[])
 
+    // useEffect(() => {
+    //     axios(`http://localhost:3003/animals/${name}`)
+    //     .then(data => data.data)
+    //     .then(data =>{
+    //         if(!data.exists) props.fail(data.message)
+    //         else setAnimals(data.animals)
+    //     })
+    // },[])
+
     return <GridList cellHeight={350} >
         {
             animals.map((animal,index) => (
-                <GridListTile key={animal.title} margin="dense">
-                    <img src={`/animals/p${index%2}.jpg`} />
+                <GridListTile key={animal.name} margin="dense">
+                    <img src={`/animals/a${index%4}.jpg`} />
                     <GridListTileBar
                         
-                        title={animal.title}
-                        subtitle={animal.body.substr(0,10) + "..."}
+                        title={animal.name}
+                        subtitle={animal.type}
                             actionIcon={
-                        <IconButton aria-label={`info about ${animal.title}`}>
+                        <IconButton aria-label={`info about ${animal.name}`}>
                             <Info/>
                         </IconButton>
                     }
