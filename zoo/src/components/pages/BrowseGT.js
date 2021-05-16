@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import InputBase from '@material-ui/core/InputBase';
 import { fade } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import { Link, useParams } from "react-router-dom"
+import { Link, useHistory, useParams } from "react-router-dom"
 import InfoIcon from '@material-ui/icons/Info';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -89,7 +89,7 @@ export function GtInfo(props){
       setExpanded(!expanded);
     };
 
-    const onLoad = ()=>{
+    const onLoad = (props)=>{
       axios(`http://localhost:3003/gt/${name}`)
       .then(data => data.data)
       .then(data => {
@@ -99,7 +99,7 @@ export function GtInfo(props){
     }
     useEffect(onLoad,[])
 
-    return (
+    return <>
       <Card className={classes.root}>
         <CardHeader
           title={name}
@@ -167,7 +167,7 @@ export function GtInfo(props){
           </CardContent>
         </Collapse>
       </Card>
-    );
+      </>
 }
 
 export function BrowseGroupTours(props){
@@ -208,7 +208,7 @@ export function BrowseGroupTours(props){
                         title={gt.event_name}
                         actionIcon={
                             <IconButton aria-label={`info about ${gt.event_name}`} className={classes.icon}>
-                              <Button component={Link} to="/gt_info" className={classes.icon}>
+                              <Button component={Link} to={`/gt/${gt.event_name}`} className={classes.icon}>
                               <InfoIcon />
                               </Button>
                             </IconButton>
