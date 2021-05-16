@@ -1,7 +1,7 @@
 const { getClient } = require("./db")
 
 //data cekileckse async olmali ki await edelim
-// need to implement other types of users
+// need to implement other types of users s
 const login = async (username, password) => {
 
     const qry = `select * from 
@@ -126,6 +126,26 @@ const educationalEvent = async (ename) => {
     return client.query(qry).then((res,err) => {
         if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
         else return {exists: true, value: res.rows[0], message: "All is fine"};
+    })
+}
+
+const allComments = async (ename) => {
+    const qry = `select * from Comment where event_name = '${ename}'`
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => {
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows, message: "All is fine"};
+    })
+}
+
+const allComplaintForms = async (ename) => {
+    const qry = `select * from Complaint_Form where event_name = '${ename}'`
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => {
+        if(err) return {exists: false, value: null, message: "Uh oh there is a server error"}
+        else return {exists: true, value: res.rows, message: "All is fine"};
     })
 }
 
@@ -283,6 +303,8 @@ exports.allConservationOrganizations = allConservationOrganizations;
 exports.groupTour = groupTour;
 exports.conservationOrganization = conservationOrganization;
 exports.educationalEvent = educationalEvent;
+exports.allComments = allComments;
+exports.allComplaintForms = allComplaintForms;
 exports.animal_info = animal_info;
 exports.coord = coord;
 exports.invite = invite;

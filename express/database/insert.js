@@ -232,8 +232,27 @@ const insertConservationOrganization = (v) => {
     const client = getClient();
     client.query(qry, (err,res)=>{
         if(err!==null) console.log(err,qry);
-    })
-        
+    })   
+}
+const insertComment = (v) => {
+    const qry = `INSERT INTO Comment
+                    (event_name, comment_id, message, comment_date) VALUES 
+                    ('${v.event_name}', '${uuidV4()}', '${v.message}', '${v.comment_date}');
+                `
+    const client = getClient();
+    client.query(qry, (err,res)=>{
+        if(err!==null) console.log(err,qry);
+    })   
+}
+const insertComplaintForm = (v) => {
+    const qry = `INSERT INTO Complaint_Form
+                    (event_name, form_id, message, complaint_type, response, complaint_date) VALUES 
+                    ('${v.event_name}', '${uuidV4()}', '${v.message}', '${v.complaint_type}', '${v.response}', '${v.complaint_date}');
+                `
+    const client = getClient();
+    client.query(qry, (err,res)=>{
+        if(err!==null) console.log(err,qry);
+    })  
 }
 const buy = async (v) => {
 
@@ -316,3 +335,5 @@ exports.insertCoordinators = insertCoordinators;
 exports.buy = buy;
 exports.insertCreates = insertCreates;
 
+exports.insertComment = insertComment;
+exports.insertComplaintForm = insertComplaintForm;
