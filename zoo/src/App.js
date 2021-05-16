@@ -14,6 +14,7 @@ import { AccountCircle } from "@material-ui/icons";
 import { Pets } from "@material-ui/icons"
 import { Shops } from "./components/pages/Shops";
 import { Gifts } from "./components/pages/Gifts";
+import { Profile } from './components/pages/profiles/Profile';
 //user.type
 
 function Alert(props) {
@@ -70,6 +71,9 @@ function App() {
           setAnchorEl(null);
           setUser(null)
         }}>Logout</MenuItem>
+        <MenuItem component={Link} to="/profile">
+          Profile
+        </MenuItem>
       </Menu>
       
       </>
@@ -134,7 +138,9 @@ function App() {
               <Route path="/animals">
                 <Animals/>
               </Route>
-
+              <Route path="/profile">
+                <Profile success={setSuccess} fail={setFail} user={user}/>
+              </Route>
               <Route path="/events">
                 <Events/>
               </Route>

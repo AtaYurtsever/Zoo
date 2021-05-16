@@ -25,17 +25,19 @@ export function Gifts(props){
             .then(data => {
                 if(!data.exists) props.fail(data.message);
                 else props.success(data.message);
-            })
+            }).then(onLoad)
     }
 
-    useEffect(()=>{
+    const onLoad = ()=>{
         axios(`http://localhost:3003/gift/shops/${name}`)
         .then(data => data.data)
         .then(data => {
             if(!data.exists) props.fail(data.message)
             else setGifts(data.gifts)
         })
-    },[])
+    }
+
+    useEffect(onLoad,[])
 
     return <>
     <h1>Welcome to {name}!</h1>
