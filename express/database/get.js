@@ -1,7 +1,7 @@
 const { getClient } = require("./db")
 
 //data cekileckse async olmali ki await edelim
-// need to implement other types of users
+// need to implement other types of users s
 const login = async (username, password) => {
 
     const qry = `select * from 
