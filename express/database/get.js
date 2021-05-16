@@ -55,8 +55,20 @@ const allGroupTours = async () => {
     })
 }
 
+// Animals Related
+const AllAnimals = async() => {
+    const qry = `select * from Animals`
+
+    const client = getClient();
+
+    return client.query(qry).then((res,err) => { 
+        if(err) return {exists: false, animals: null, message: "Uh oh there is a server error"}
+        else return {exists: true, animals: res.rows, message: "All is fine"};
+    })
+}
 
 exports.login = login;
 exports.allShops = allShops;
 exports.gifts = gifts;
 exports.allGroupTours = allGroupTours;
+exports.allAnimals = allAnimals;

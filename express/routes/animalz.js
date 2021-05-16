@@ -8,8 +8,5 @@ router.get('/animals', async function(req, res, next) {
   allAnimals().then(val => res.send(val))
 });
 
-router.get('/animals/:animal', async function(req, res, next) {
-  animals(req.params.shop).then(val => res.send(val)) 
-});
 
 module.exports = router;
