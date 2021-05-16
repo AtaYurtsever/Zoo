@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme)=>({
 export function GtInfo(props){
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
-    const [gt, setGroupTours] = useState([])
+    const [gt, setGroupTours] = useState(null)
     const {name} = useParams()
   
     /*useEffect(()=>{
@@ -98,7 +98,8 @@ export function GtInfo(props){
       })
     }
     useEffect(onLoad,[])
-
+    console.log(gt)
+    if( gt)
     return <>
       <Card className={classes.root}>
         <CardHeader
@@ -168,6 +169,7 @@ export function GtInfo(props){
         </Collapse>
       </Card>
       </>
+      else return <></>
 }
 
 export function BrowseGroupTours(props){
