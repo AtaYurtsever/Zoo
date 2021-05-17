@@ -72,6 +72,8 @@ export function VetProfile(props){
     const info = vet ? <Paper className={classes.paper}>
         <h1>Name: {vet.name + "  " + vet.surname}</h1> 
         <h2>Phone: {vet.phone}</h2>
+        <h3>Salary: {vet.salary}</h3>
+        <h3>Degree: {vet.degree}</h3>
     </Paper> : <></>
 
 

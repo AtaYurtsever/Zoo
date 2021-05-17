@@ -232,8 +232,27 @@ const insertConservationOrganization = (v) => {
     const client = getClient();
     client.query(qry, (err,res)=>{
         if(err!==null) console.log(err,qry);
-    })
-        
+    })   
+}
+const insertComment = (v) => {
+    const qry = `INSERT INTO Comment
+                    (event_name, comment_id, message, comment_date) VALUES 
+                    ('${v.event_name}', '${uuidV4()}', '${v.message}', '${v.comment_date}');
+                `
+    const client = getClient();
+    client.query(qry, (err,res)=>{
+        if(err!==null) console.log(err,qry);
+    })   
+}
+const insertComplaintForm = (v) => {
+    const qry = `INSERT INTO Complaint_Form
+                    (event_name, form_id, message, complaint_type, response, complaint_date) VALUES 
+                    ('${v.event_name}', '${uuidV4()}', '${v.message}', '${v.complaint_type}', '${v.response}', '${v.complaint_date}');
+                `
+    const client = getClient();
+    client.query(qry, (err,res)=>{
+        if(err!==null) console.log(err,qry);
+    })  
 }
 const buy = async (v) => {
 
@@ -295,6 +314,45 @@ const insertVeterinarian = (v) => {
     })
 }
 
+const insertCage = (v)=>{
+    const qry = `INSERT INTO cage(cage_id, address)
+                values ('${v.id}','${v.address}')`
+    const client = getClient();
+    client.query(qry, (err,res)=>{
+        if(err!==null) console.log(err,qry);
+    })
+}
+
+const insertAssign = (v)=>{
+    const qry = `INSERT INTO assigns(k_username, cage_id, c_username, start_date, end_date)
+                values ('${v.keeper}','${v.cage}','${v.coord}','${v.start}','${v.end}')`
+    const client = getClient();
+    client.query(qry, (err,res)=>{
+        if(err!==null) console.log(err,qry);
+    })
+}
+
+const insertRegularize = (v) => {
+    const qry = `INSERT INTO regularize(cage_id, food_id, username, portion, frequency)
+                values ('${v.cage}','${v.food}','${v.keep}','${v.portion}','${v.freq}')`
+    const client = getClient();
+    client.query(qry, (err,res)=>{
+        if(err!==null) console.log(err,qry);
+    })
+}
+
+const deleteRegularize = (v) => {
+    const qry = `DELETE FROM regularize where cage_id='${v.cage}' and food_id='${v.food}'`
+    const client = getClient();
+    client.query(qry, (err,res)=>{
+        if(err!==null) console.log(err,qry);
+    })
+}
+
+exports.deleteRegularize = deleteRegularize;
+exports.insertCage = insertCage;
+exports.insertRegularize = insertRegularize;
+exports.insertAssign = insertAssign;
 exports.insertGiftshop = insertGiftshop;
 exports.insertGiftshopManager = insertGiftshopManager;
 exports.insertVisitor = insertVisitor;
@@ -316,3 +374,5 @@ exports.insertCoordinators = insertCoordinators;
 exports.buy = buy;
 exports.insertCreates = insertCreates;
 
+exports.insertComment = insertComment;
+exports.insertComplaintForm = insertComplaintForm;

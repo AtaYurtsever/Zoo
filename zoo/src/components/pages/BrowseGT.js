@@ -1,4 +1,4 @@
-import { Typography, Button, GridList, GridListTile, GridListTileBar, IconButton, makeStyles } from "@material-ui/core"
+import { Dialog, DialogTitle, DialogActions, TextField, Typography, Button, GridList, GridListTile, GridListTileBar, IconButton, makeStyles } from "@material-ui/core"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import InputBase from '@material-ui/core/InputBase';
@@ -73,15 +73,113 @@ const useStyles = makeStyles((theme)=>({
 }))
 
 
+export function GtComplaint(props){
+  const classes = useStyles();
+  const [expanded, setExpanded] = React.useState(false);
+  const [gt, setGroupTours] = useState([])
+  const {name} = useParams()
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  const onLoad = (props)=>{
+    axios(`http://localhost:3003/gt/complaint/${name}`)
+    .then(data => data.data)
+    .then(data => {
+        if(!data.exists) props.fail(data.message)
+        else setGroupTours(data.value)
+    })
+  }
+  useEffect(onLoad,[])
+  console.log(gt)
+  if( gt)
+    return <>
+    <h1>Complaints on {name}</h1>
+    <GridList cellHeight={150} >
+        {
+        gt.map((comment,index) => (
+          <>
+        <h2 startIcon={<FeedbackIcon />}>{comment.complaint_type} : {comment.message} on {comment.complaint_date}</h2>
+        <h3 >RESPONSE OF COORDINATOR: {comment.response}</h3> 
+          </>
+    ))}
+    </GridList>
+    </>
+      else return <></>
+}
+
+export function GtComment(props){
+  const classes = useStyles();
+  const [expanded, setExpanded] = React.useState(false);
+  const [gt, setGroupTours] = useState([])
+  const {name} = useParams()
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  const onLoad = (props)=>{
+    axios(`http://localhost:3003/gt/comment/${name}`)
+    .then(data => data.data)
+    .then(data => {
+        if(!data.exists) props.fail(data.message)
+        else setGroupTours(data.value)
+    })
+  }
+  useEffect(onLoad,[])
+  console.log(gt)
+  if( gt)
+    return <>
+    <h1>Comments on {name}</h1>
+    <GridList cellHeight={150} >
+        {
+        gt.map((comment,index) => (
+        <h2 startIcon={<FeedbackIcon />}>{comment.message} on {comment.comment_date}</h2>
+    ))}
+    </GridList>
+    </>
+      else return <></>
+}
+
 export function GtInfo(props){
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
     const [gt, setGroupTours] = useState(null)
+    const [open, setOpen] = useState(false);
     const {name} = useParams()
   
     const handleExpandClick = () => {
       setExpanded(!expanded);
     };
+
+
+    const commentButton = <>
+    <Button 
+            variant="contained"
+            color="primary"
+            size="small"
+            className={classes.button}
+            startIcon={<RateReviewIcon />}
+            color="inherit" onClick={()=>setOpen(true)}>Provide Feedback</Button>
+      <Dialog 
+        open={open} 
+        onClose={()=>setOpen(false)}>
+        <DialogTitle id="login-dialog-title">Comment</DialogTitle>
+          <TextField
+            required
+            autoFocus
+            margin="dense"
+            id=""
+            label=""
+            fullWidth
+            style={{width:"70%", left:"15%", height:"70%"}}
+          />
+          <DialogActions> 
+                <Button color="primary">Submit</Button>
+          </DialogActions>
+    </Dialog>
+    </>
 
     const onLoad = (props)=>{
       axios(`http://localhost:3003/gt/${name}`)
@@ -115,14 +213,15 @@ export function GtInfo(props){
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
+            {commentButton}
             <Button
                 variant="contained"
                 color="primary"
                 size="small"
                 className={classes.button}
-                startIcon={<RateReviewIcon />}
-                >
-                Provide Feedback
+                startIcon={<FeedbackIcon />}
+                component={Link} to={`/gt/comment/${gt.event_name}`}>
+                View Comments
             </Button>
             <Button
                 variant="contained"
@@ -130,8 +229,8 @@ export function GtInfo(props){
                 size="small"
                 className={classes.button}
                 startIcon={<FeedbackIcon />}
-                >
-                View Feedback
+                component={Link} to={`/gt/complaint/${gt.event_name}`}>
+                View Complaints
             </Button>
             <Button
                 variant="contained"
@@ -169,7 +268,6 @@ export function GtInfo(props){
 export function BrowseGroupTours(props){
     const [groupTours, setGroupTours] = useState([])
     const classes = useStyles();
-
 
     useEffect(()=>{
         axios(`http://localhost:3003/gt`)

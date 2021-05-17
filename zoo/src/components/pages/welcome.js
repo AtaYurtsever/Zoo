@@ -14,14 +14,13 @@ export function Welcome(props){
                         component = "img"
                         alt="something"
                         height="140"
-                        image="/lion.jpg"
+                        image="/gt_logo.jpg"
                         title="you are lion"
                       />
                       <CardContent>
                         <Typography variant="h5" component="h2">
-                          Events
+                          Events <Event/>
                         </Typography>
-                        <Event/>
                       </CardContent>
                     </CardActionArea>
                     <CardActions> 
@@ -39,7 +38,7 @@ export function Welcome(props){
                         component = "img"
                         alt="something"
                         height="140"
-                        image="/lion.jpg"
+                        image="/shop/p0.jpg"
                         title="you are lion"
                       />
                       <CardContent>
@@ -64,7 +63,7 @@ export function Welcome(props){
                         component = "img"
                         alt="something"
                         height="140"
-                        image="/lion.jpg"
+                        image="/animals/a1.jpg"
                         title="you are lion"
                       />
                       <CardContent>

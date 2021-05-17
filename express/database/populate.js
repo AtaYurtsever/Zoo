@@ -1,5 +1,8 @@
 const { uuid1, uuid2, uuid3, uuid4, uuid5, uuid6, uuid7, uuid8, uuid9, uuid10 } = require("./uuid");
-const { insertConservationOrganization,
+const { 
+    insertComplaintForm, 
+    insertComment,
+    insertConservationOrganization,
      insertEducationalEvent, 
      insertCoordinators, 
      insertGroupTour, 
@@ -11,11 +14,26 @@ const { insertConservationOrganization,
      insertVeterinarian, 
      insertInvite,
      insertKeeper,
-     insertTreatment } = require("./insert")
+     insertTreatment, 
+     insertCage,
+     insertAssign} = require("./insert")
 
 
 const date = "2000-05-17T08:04:00.000Z";
 console.log(uuid4);
+
+const populateCage = () => {
+    insertCage({
+        id: uuid4,
+        address: "cage 4: somewhere cold",
+    })
+
+    insertCage({
+        id: uuid5,
+        address: "cage 5: somewhere else",
+    })
+}
+
 const populateAnimal = () => {
     insertAnimal({
         name:"Mr. Tuxedo",
@@ -50,7 +68,7 @@ const populateAnimal = () => {
         biography:"punching around",
         notable_features:"not a penguin",
         food_id:uuid7,
-        cage_id:uuid4
+        cage_id:uuid5
     })
 
     insertAnimal({
@@ -62,7 +80,7 @@ const populateAnimal = () => {
         biography:"thinking around",
         notable_features:"not a penguin",
         food_id:uuid7,
-        cage_id:uuid4
+        cage_id:uuid5
     })
 
     insertAnimal({
@@ -341,6 +359,46 @@ const populateConservationOrganizations = () => {
     })
 }
 
+const populateComments = () => {
+    insertComment({
+        event_name: "Lions Tour",
+        comment_id: uuid1,
+        message: "This tour was really really cool.",
+        comment_date: date
+    })
+    insertComment({
+        event_name: "Lions Tour",
+        comment_id: uuid2,
+        message: "My kids loved it, very fun.",
+        comment_date: date
+    })
+    insertComment({
+        event_name: "Penguin Exploration",
+        comment_id: uuid3,
+        message: "I would sell my soul to be able to be on this tour again.",
+        comment_date: date
+    })
+}
+
+const populateComplaintForms = () => {
+    insertComplaintForm({
+        event_name: "Lions Tour",
+        form_id: uuid4,
+        message: "this tour was so bad, I hated every second of it with all my being.",
+        complaint_type: "boredom",
+        response: "We are sorry to hear that, maybe we can refund your money.",
+        complaint_date: date
+    })
+    insertComplaintForm({
+        event_name: "Penguin Exploration",
+        form_id: uuid5,
+        message: "I saw penguin poop on the floor!",
+        complaint_type: "hygiene",
+        response: "",
+        complaint_date: date
+    })
+}
+
 const populateCoordinators = () => {
     insertCoordinators({
         username: "coord1",
@@ -418,9 +476,26 @@ const populateTreatmentInvite = () => {
         inviter: "coord1",
         invitee: "vetty"
     })
+
+    insertAssign({
+        keeper: "keepy",
+        coord: "coord1",
+        cage: uuid4,
+        start:date,
+        end:date
+    })
+
+    insertAssign({
+        keeper: "keepy",
+        coord: "coord1",
+        cage: uuid5,
+        start:date,
+        end:date
+    })
 }
 
 const populate = ()=>{
+    populateCage()
     populateFood()
     populateAnimal()
     populategiftShops()
@@ -429,6 +504,8 @@ const populate = ()=>{
     populateVeterinarianKeeper()
     populateEducationalEvents()
     populateConservationOrganizations()
+    populateComments()
+    populateComplaintForms()
     populateTreatmentInvite()
 }
 
