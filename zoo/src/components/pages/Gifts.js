@@ -13,9 +13,14 @@ const useStyles = makeStyles(()=>({
         width: 500,
         height: 450,
   },
+  icon: {
+    color: 'rgba(255, 255, 255, 0.54)',
+  },
 }))
 
 export function Gifts(props){
+    const classes = useStyles();
+
     const [gifts, setGifts] = useState([]) 
     const {name} = useParams()
     const [open,setOpen] = useState(false)
@@ -102,7 +107,7 @@ export function Gifts(props){
                         actionIcon={
                         props.user && props.user.type === "visitor" ?
                         <IconButton aria-label={`Buy ${gift.name}`} onClick={(_) => buy(gift.product_code)}>
-                            <Shop/>
+                            <Shop style={{color: 'rgba(255, 255, 255, 0.54)'}}/>
                         </IconButton>: <></>
                     }/>
                     

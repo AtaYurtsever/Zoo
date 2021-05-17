@@ -340,6 +340,10 @@ exports.createTables =  function createTables(){
                 PRIMARY KEY (product_code) );
             `
 
+    qry += `alter table zoouser add constraint sex_check check (sex in ('m','f','n'));
+            alter table invite add constraint status_check check (request_status in ('a','y','n'));
+            alter table treatment add constraint status_check check (request_status in ('a','y','n'));`
+
     console.log(qry);
     client.query(qry,  (err,res) => {console.log(err,res)})    
 

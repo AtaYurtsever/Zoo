@@ -32,6 +32,7 @@ export function Shops(props){
                     <GridListTileBar
                         margin="dense"
                         title={shop.name}
+                        subtitle={(shop.avg ? `average price: ${shop.avg.split(".")[0]}.${shop.avg.split(".")[1].substr(0,2)}₺` : `` )+ `  address: ${shop.address}`}
                             actionIcon={
                         <IconButton aria-label={`info about ${shop.name}`}  component={Link} to={`/shops/${shop.name}`}>
                             <Shop/>

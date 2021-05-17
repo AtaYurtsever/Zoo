@@ -61,6 +61,7 @@ export function GSMProfile(props){
     const info = GSM ? <Paper className={classes.paper}>
         <h1>Name: {GSM.name + "  " + GSM.surname}</h1> 
         <h2>Phone: {GSM.phone}</h2>
+        <h3>Salary: {GSM.salary}</h3>
     </Paper> : <></>
 
     const profitField = GSM ? <Paper className={classes.paper}>

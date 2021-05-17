@@ -27,7 +27,7 @@ const login = async (username, password) => {
 }
 
 const allShops = async () => {
-    const qry = `select * from giftshop`
+    const qry = `select avg,address, opening_date,gs.name from (select gs.name, avg(g.price::NUMERIC(10,2)) from gift g join giftshop gs on g.shop = gs.name GROUP BY gs.name) as avgP right join giftshop gs on avgP.name=gs.name;`
 
     const client = getClient();
 

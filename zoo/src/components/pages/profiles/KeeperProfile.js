@@ -100,6 +100,8 @@ export function KeeperProfile(props){
     const info = keeper ? <Paper className={classes.paper}>
         <h1>Name: {keeper.name + "  " + keeper.surname}</h1> 
         <h2>Phone: {keeper.phone}</h2>
+        <h3>Salary: {keeper.salary}</h3>
+
     </Paper> : <></>
 
 const regBtn = <>
@@ -110,6 +112,7 @@ const regBtn = <>
                 <DialogTitle id="login-dialog-title">regularize</DialogTitle>
                     <Select
                         onChange={(event) => setsFood(event.target.value)}
+                    style={{width:"70%", left:"15%"}}
                     >
                      {food.map(vet=>(
                          <MenuItem value={vet.food_id}>{vet.name}</MenuItem>
@@ -117,6 +120,7 @@ const regBtn = <>
                     </Select>
                     <Select
                         onChange={(event) => setCage(event.target.value)}
+                    style={{width:"70%", left:"15%"}}
                     >
                      {cages.map(vet=>(
                          <MenuItem value={vet.cage_id}>{vet.address}</MenuItem>
@@ -161,6 +165,7 @@ const regBtn = <>
                 <DialogTitle id="login-dialog-title">treatment</DialogTitle>
                     <Select
                         onChange={(event) => setVet(event.target.value)}
+                    style={{width:"70%", left:"15%"}}
                     >
                      {vets.map(vet=>(
                          <MenuItem value={vet.username}>{vet.username}</MenuItem>
@@ -168,9 +173,10 @@ const regBtn = <>
                     </Select>
                     <Select
                         onChange={(event) => setAnimal(event.target.value)}
+                    style={{width:"70%", left:"15%"}}
                     >
                      {cages.map(vet=>(
-                         <MenuItem value={[vet.name,vet.type]}>{vet.username} {vet.type}</MenuItem>
+                         <MenuItem value={[vet.name,vet.type]}>{vet.name} {vet.type}</MenuItem>
                      ))}   
                     </Select>
                     
