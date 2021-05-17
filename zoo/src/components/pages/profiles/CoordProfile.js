@@ -73,7 +73,6 @@
 //     </Paper> : <></>
 
 
-<<<<<<< HEAD
     // const invitedField = coord ? 
     // <TableContainer component={Paper} className={classes.paper}>
     //     <h2>Invited Organizations</h2>
@@ -151,7 +150,6 @@
     //         </TableBody>
     //     </Table>
     // </TableContainer> : <></>   
-=======
 //     const invitedField = coord ? 
 //     <TableContainer component={Paper} className={classes.paper}>
 //         <h2>Invited Organizations</h2>
@@ -229,7 +227,6 @@
 //             </TableBody>
 //         </Table>
 //     </TableContainer> : <></>   
->>>>>>> main
 
 //     return (
 //         <Grid container spacing={3}>

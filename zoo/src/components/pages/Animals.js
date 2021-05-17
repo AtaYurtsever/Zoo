@@ -1,4 +1,4 @@
-import { Button, CardHeader, GridList, GridListTile, GridListTileBar, IconButton, makeStyles } from "@material-ui/core"
+import { Button, CardHeader, GridList, GridListTile, Typography, CardContent, GridListTileBar, IconButton, makeStyles } from "@material-ui/core"
 import { Info } from "@material-ui/icons"
 import axios from "axios"
 import { useEffect, useState } from "react"
@@ -37,8 +37,23 @@ export function AnimalInfo(props){
             <CardHeader
                 title={name}
                 subheader={`${a.type}  ${a.notable_features}`}
+                // subheader={`${a.biography}`}
             />
-            <img src={"/animals/a0.jpg"} width="600" height="400" align="center"/>
+            <img src={"/animals/a2.jpg"} width="600" height="400" align="center"/>
+            <CardContent>
+                <Typography variant="body2" color="textSecondary" component="p">
+                    Weight: {a.weight}
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                    Biography: {a.biography}
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                    Birthday: {a.birthday}
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                    Gender: {a.gender}
+                </Typography>
+            </CardContent>
         </Card>
     </>
     else return <></>
