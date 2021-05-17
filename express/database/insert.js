@@ -341,6 +341,15 @@ const insertRegularize = (v) => {
     })
 }
 
+const deleteRegularize = (v) => {
+    const qry = `DELETE FROM regularize where cage_id='${v.cage}' and food_id='${v.food}'`
+    const client = getClient();
+    client.query(qry, (err,res)=>{
+        if(err!==null) console.log(err,qry);
+    })
+}
+
+exports.deleteRegularize = deleteRegularize;
 exports.insertCage = insertCage;
 exports.insertRegularize = insertRegularize;
 exports.insertAssign = insertAssign;

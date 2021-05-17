@@ -57,6 +57,11 @@ export function KeeperProfile(props){
             .then(onLoad)
     }
 
+    const deleteReg = (cage,sfood) => {
+        axios.post('http://localhost:3003/vet/deleteRegularize',{cage:cage, food:sfood, keep:props.user.username})
+            .then(onLoad)
+    }
+
     const insertRegularize = () => {
         axios.post('http://localhost:3003/vet/insertRegularize',{cage:cage, food:sfood, keep:props.user.username, portion: portion, freq:frequency})
             .then(onLoad)
@@ -237,6 +242,7 @@ const regBtn = <>
                     <TableCell> food </TableCell>
                     <TableCell> portion </TableCell>
                     <TableCell> frequency </TableCell>
+                    <TableCell></TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -248,6 +254,9 @@ const regBtn = <>
                         <TableCell align="right">{row.food_id}</TableCell>
                         <TableCell align="right">{row.portion}</TableCell>
                         <TableCell align="right">{row.frequency}</TableCell>
+                        <TableCell align="right">{
+                            <Button color="secondary" onClick={()=>deleteReg(row.cage_id, row.food_id)}>Delete</Button>}
+                        </TableCell>
                     </TableRow> 
                 ))}
             </TableBody>

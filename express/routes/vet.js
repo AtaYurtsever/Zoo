@@ -1,6 +1,6 @@
 var express = require('express');
 const { invited, requested, cages, regularized, food } = require('../database/get');
-const { updateInvite, updateTreatment, insertTreatment, insertRegularize } = require('../database/insert');
+const { updateInvite, updateTreatment, insertTreatment, insertRegularize, deleteRegularize } = require('../database/insert');
 var router = express.Router();
 
 router.post('/invited', function(req, res, next) {
@@ -41,6 +41,12 @@ router.post('/insertTreatment',function(req, res, next) {
 
 router.post('/insertRegularize',function(req, res, next) {
   insertRegularize(req.body)
+  res.send("all good")
+
+});
+
+router.post('/deleteRegularize',function(req, res, next) {
+  deleteRegularize(req.body)
   res.send("all good")
 
 });
